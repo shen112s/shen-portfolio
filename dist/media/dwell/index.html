@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>《栖居》</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Cpath d='M9 7l15 9-15 9z' fill='%23fff'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <video
+      controls
+      playsinline
+      preload="metadata"
+      poster="./assets/dwell-poster.jpg"
+      aria-label="播放纪录片《栖居》"
+    >
+    </video>
+    <script src="./assets/hls.min.js"></script>
+    <script>
+      const video = document.querySelector("video");
+      const streamUrl = "./hls/index.m3u8";
+
+      if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = streamUrl;
+      } else if (window.Hls && Hls.isSupported()) {
+        const hls = new Hls({
+          maxBufferLength: 30,
+          backBufferLength: 30,
+        });
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+      }
+    </script>
+  </body>
+</html>
