@@ -1,7 +1,7 @@
 /* Editorial yearbook: field notebook, film contact sheet, visual archive. */
 :root{--paper:#f4f0e8;--pale:#eae4d8;--ink:#1c1b18;--muted:#635f58;--orange:#df552f;--accent-ink:#bd4128;--line:rgba(28,27,24,.22);--serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;--sans:"Avenir Next","Helvetica Neue",Arial,sans-serif;--mono:Menlo,Consolas,monospace;--ease:cubic-bezier(.22,1,.36,1)}
 body{background:var(--paper);font-family:var(--sans)}
-html{scroll-padding-top:0}section{scroll-margin-top:5rem}
+html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:5rem}
 
 /* A small masthead gives the original covers the visual authority. */
 .site-header{min-height:5rem;padding-inline:clamp(1.5rem,4vw,4.25rem);gap:2rem;background:var(--paper);backdrop-filter:none}
