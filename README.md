@@ -2,7 +2,10 @@
 
 The publishable static website is entirely inside `dist/`, including all four video players. Never upload the parent application-materials folder or account credentials.
 
-Publication status: prepared for GitHub Pages; not yet published or anonymously verified.
+Website: https://shen112s.github.io/shen-portfolio/
+Repository: https://github.com/shen112s/shen-portfolio
+
+GitHub Pages deployment is enabled. The site is public; no GitHub login is required to view it.
 
 ## Local preview
 
@@ -28,6 +31,7 @@ Hey, Press Pause intentionally shows a still and reserves preview space; no unco
 
 ```sh
 node scripts/validate-site.mjs
+node scripts/check-online.mjs
 ```
 
 This checks local image/player references, every HLS segment, project count, gallery files and GitHub size limits. `node scripts/prepare-media.mjs` is only needed when refreshing media from the original neighbouring local projects; it copies an explicit allowlist. It is not needed in GitHub Actions or a fresh clone with committed media.
@@ -51,6 +55,8 @@ git commit -m "Update portfolio"
 git push origin main
 ```
 
-The workflow redeploys automatically. Small text edits can also be committed directly on GitHub. Check Actions after each update; failed validation does not replace the last successful deployment. Replace HLS playlists and all referenced segments together.
+The workflow redeploys automatically. Small text edits can also be committed directly on GitHub. Check Actions after each update; failed validation does not replace the last successful deployment. Replace HLS playlists and all referenced segments together. Bump the `?v=` values in `dist/index.html` when changing CSS or JavaScript to avoid stale browser caches.
+
+On this Mac, the repository has a local Git credential helper using the official GitHub CLI in the ignored `.release/` folder. Never upload or share that folder. A fresh clone on another computer needs its own GitHub login; the credential configuration is not included in source.
 
 Reference: [GitHub Pages automatic deployment](https://docs.github.com/en/get-started/start-your-journey/deploying-your-website-automatically).
