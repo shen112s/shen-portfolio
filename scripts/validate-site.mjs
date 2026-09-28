@@ -49,9 +49,17 @@ const workLabels = [...index.matchAll(/class="work-no">([^<]+)</g)].map(match =>
 if (workLabels.length !== 9 || workLabels.some(label => /^\d+\s*\//.test(label) || !/\/\s*20\d{2}$/.test(label))) failures.push('Work labels must show only type and year for all nine projects.');
 if (/id="dialog-(?:deck|story)"|THE WORK/.test(index)) failures.push('Removed detail scaffolding remains in the page.');
 if (/id="dialog-kicker"|SHEN JIAJUN \/ SELECTED WORK/.test(index) || /querySelector\(['"]#dialog-kicker['"]\)/.test(script)) failures.push('Removed detail masthead or kicker remains.');
+const backdropSource = script.slice(script.indexOf('function isProjectBackdropPoint'), script.indexOf('let projectBackdropPress'));
+const testDialog = {getBoundingClientRect: () => ({left:32,top:32,right:887,bottom:779})};
+const isBackdropPoint = vm.runInNewContext(`${backdropSource}; isProjectBackdropPoint`, {projectDialog:testDialog});
+for (const [clientX,clientY,expected] of [[16,400,true],[900,400,true],[400,16,true],[400,800,true],[400,400,false],[882,774,false],[32,32,false]]) {
+  if (isBackdropPoint({target:testDialog,clientX,clientY}) !== expected) failures.push('Project backdrop hit testing must not close the window from its resize corner or scrollbar.');
+}
+if (isBackdropPoint({target:{},clientX:16,clientY:400})) failures.push('Clicks on project content must not be treated as backdrop clicks.');
 const removedFacts = {accessibility:['Subject'], doxxing:['Subject'], parking:['Reporting','Format'], dwell:['Subjects'], choice:['Selection'], pause:['Brand'], shanghai:['Format','Places']};
 for (const [key, project] of Object.entries(projects)) {
   if (!project.description?.trim()) failures.push(`Missing project description: ${key}`);
+  if (project.article && (!Array.isArray(project.articleSize) || project.articleSize.length !== 2 || project.articleSize.some(value => !Number.isInteger(value) || value <= 0))) failures.push(`Missing intrinsic article dimensions: ${key}`);
   if (project.deck || project.story) failures.push(`Removed detail copy remains: ${key}`);
   if (project.meta.some(([label]) => removedFacts[key]?.includes(label))) failures.push(`Removed metadata remains: ${key}`);
   for (const key of ['image', 'article', 'still']) if (project[key]) checkRef(scriptFile, project[key]);

@@ -23,6 +23,7 @@ const projects = {
     description: 'The report begins with “No. 600 Wanping South Road”, an address often used jokingly in Shanghai as shorthand for mental illness. Through conversations with one person living with mental illness and one frontline social worker, it examines employment, family relationships, community life, and social acceptance after a patient’s condition has stabilised.',
     justifyDescription: true,
     article: './assets/wanping-article.jpg',
+    articleSize: [1279,41340],
     actions: []
   },
   accessibility: {
@@ -33,6 +34,7 @@ const projects = {
     description: 'Using the disability-inclusive dance initiative Embodied Moment (此时舞身) as its entry point, the report observes how disabled and non-disabled participants share a dance class. It then asks whether the venue, access to information, and opportunities for expression are genuinely accessible. Revealing the distance that can remain between being present in the same room and participating on equal terms.',
     justifyDescription: true,
     article: './assets/accessibility-article.png',
+    articleSize: [1290,35146],
     actions: []
   },
   doxxing: {
@@ -43,6 +45,7 @@ const projects = {
     description: 'The project examines “kaihe”—the Chinese online term for doxxing—alongside personal-data leaks and online abuse. It uses publicly reported cases, a map of the illicit information chain, official notices, published expert commentary, a risk profile, and an interactive quiz to explain how personal information is collected, traded, and circulated. Its interactive webpage and WeChat versions place readers in recognisable situations, helping them identify risks and find practical guidance.',
     justifyDescription: true,
     article: './assets/doxxing-article.png',
+    articleSize: [1290,21783],
     actions: []
   },
   parking: {
@@ -153,6 +156,8 @@ function openProject(key) {
     const image = document.createElement('img');
     image.src = project.article;
     image.alt = `Full-length article image for ${project.title}`;
+    // Reserve the full article height so lazy loading never changes the scroll range.
+    [image.width, image.height] = project.articleSize;
     image.loading = 'lazy';
     image.decoding = 'async';
     image.className = 'dialog-long-image';
@@ -190,7 +195,18 @@ function openProject(key) {
 
 document.querySelectorAll('.project-trigger').forEach(button => button.addEventListener('click', () => openProject(button.dataset.project)));
 projectDialog.querySelector('.dialog-close').addEventListener('click', () => projectDialog.close());
-projectDialog.addEventListener('click', event => { if (event.target === projectDialog) projectDialog.close(); });
+function isProjectBackdropPoint(event) {
+  if (event.target !== projectDialog) return false;
+  const bounds = projectDialog.getBoundingClientRect();
+  return event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+}
+let projectBackdropPress = false;
+projectDialog.addEventListener('pointerdown', event => { projectBackdropPress = isProjectBackdropPoint(event); });
+projectDialog.addEventListener('click', event => {
+  if (projectBackdropPress && isProjectBackdropPoint(event)) projectDialog.close();
+  projectBackdropPress = false;
+});
+projectDialog.addEventListener('pointercancel', () => { projectBackdropPress = false; });
 projectDialog.addEventListener('close', stopProjectMedia);
 
 const photography = [
