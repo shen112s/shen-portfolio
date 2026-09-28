@@ -1,6 +1,6 @@
 # Shen Jiajun — Portfolio
 
-The publishable static website is entirely inside `dist/`, including all four video players. Never upload the parent application-materials folder or account credentials.
+The publishable static website is entirely inside `dist/`, including all five video players. Never upload the parent application-materials folder or account credentials.
 
 Website: https://shen112s.github.io/shen-portfolio/
 Repository: https://github.com/shen112s/shen-portfolio
@@ -22,10 +22,10 @@ Open `http://127.0.0.1:8000/`. Use an HTTP server rather than opening HTML as a 
 - `dist/index.html`: cover, navigation and work index.
 - `dist/editorial.css`: current layout, colours, typography and responsive rules; loaded after the base stylesheet.
 - `dist/script.js`: project descriptions, links, media paths and gallery interactions.
-- `dist/assets/`: posters, three full-length reports, eight internship pieces and twenty-four photos.
-- `dist/media/`: Dwell, A Moment’s Choice, Shanghai and campus parking players.
+- `dist/assets/`: posters, three full-length reports, eight internship pieces and thirty-six photos. Photos 25–36 are the twelve new photographs, appended in the supplied order without altering the source files.
+- `dist/media/`: Dwell, A Moment’s Choice, Hey, Press Pause, Shanghai and campus parking players.
 
-Hey, Press Pause intentionally shows a still and reserves preview space; no unconfirmed video is inserted. The interactive school story and original portfolio links remain external services.
+Hey, Press Pause temporarily uses the user-supplied `Bb13-09-020-0001.mp4`. Its web copy is in `dist/media/pause/hls/`; the desktop original remains untouched and is not included in the website. The player reuses the bundled HLS library from `dist/media/choice/assets/`. The interactive school story remains an external service with its own source link. Links to the old portfolio pages have been removed following the local review annotations.
 
 ## Validation
 
@@ -34,7 +34,7 @@ node scripts/validate-site.mjs
 node scripts/check-online.mjs
 ```
 
-This checks local image/player references, every HLS segment, project count, gallery files and GitHub size limits. `node scripts/prepare-media.mjs` is only needed when refreshing media from the original neighbouring local projects; it copies an explicit allowlist. It is not needed in GitHub Actions or a fresh clone with committed media.
+This checks local image/player references, every HLS segment, project count, gallery files and GitHub size limits. `node scripts/prepare-media.mjs` is only needed when refreshing the other four players from the original neighbouring local projects; it copies an explicit allowlist and leaves the locally encoded Pause player untouched. It is not needed in GitHub Actions or a fresh clone with committed media.
 
 ## GitHub Pages setup
 

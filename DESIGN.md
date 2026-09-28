@@ -27,9 +27,9 @@ Primary job: identify the work quickly, then open a readable project detail.
 
 - Cover fills one viewport below the header: centered orange title at left, enlarged real-cover collage at right. Images use intrinsic height at every breakpoint; the collage is above its background and may extend beyond its frame.
 - Journalism: orange chapter header, paper work sheet, one lead plus two balanced pairs.
-- Creative media: pale chapter, the same paper work sheet and lead-plus-pairs structure. The final Shanghai poster is centered rather than edge-aligned.
-- Visual archive: pale ground and matching paper sheet, horizontal internship rail, denser photography grid.
+- Creative media: pale chapter, two equal columns on a paper work sheet, with captions below each uncropped image. Use a shared portrait display area to align captions within each pair; switch to one column at 650px and below.
+- Visual archive: the same orange ground as Journalism, a paper sheet inside, a horizontal internship rail, and larger photographs in proportion-preserving rows with uniform 10px gaps.
 - Section rails, archive explanatory captions, the hero period, and footer copyright are removed as requested.
-- Detail: full-screen editorial reading view; original media immediately below description.
+- Detail: full-screen editorial reading view; enlarged cover vertically centered beside the project facts, with original media below the description. Remove decks, extra story sections, original-portfolio links and THE WORK labels; preserve recognition and actual media/source links.
 
-Preserve every project title, role, award, image, video, link, and existing detail interaction. No synthetic imagery or invented copy.
+Preserve every project title, role, award, image, video, actual work/source link and existing detail interaction unless specifically removed by an annotation. Masthead and cover title share vermilion; the cover title uses generous leading so its descenders never collide with the byline. No synthetic imagery or invented copy.

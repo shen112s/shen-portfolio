@@ -6,6 +6,7 @@ import vm from 'node:vm';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const site = resolve(root, 'dist');
 const failures = [];
+const index = readFileSync(resolve(site, 'index.html'), 'utf8');
 let size = 0, count = 0, segmentCount = 0;
 
 function checkRef(file, ref) {
@@ -43,14 +44,49 @@ if (/localhost|127\.0\.0\.1|\.\.\/\.\.\//.test(script)) failures.push('Script st
 const projectsSource = script.slice(script.indexOf('const projects ='), script.indexOf('const projectDialog ='));
 const projects = vm.runInNewContext(`${projectsSource}; projects`, Object.create(null));
 if (Object.keys(projects).length !== 9) failures.push('Expected nine projects.');
-for (const project of Object.values(projects)) {
+if (projects.pause.video?.player !== './media/pause/index.html' || projects.pause.still) failures.push('Hey, Press Pause must use its temporary local film player.');
+const workLabels = [...index.matchAll(/class="work-no">([^<]+)</g)].map(match => match[1]);
+if (workLabels.length !== 9 || workLabels.some(label => /^\d+\s*\//.test(label) || !/\/\s*20\d{2}$/.test(label))) failures.push('Work labels must show only type and year for all nine projects.');
+if (/id="dialog-(?:deck|story)"|THE WORK/.test(index)) failures.push('Removed detail scaffolding remains in the page.');
+if (/id="dialog-kicker"|SHEN JIAJUN \/ SELECTED WORK/.test(index) || /querySelector\(['"]#dialog-kicker['"]\)/.test(script)) failures.push('Removed detail masthead or kicker remains.');
+const removedFacts = {accessibility:['Subject'], doxxing:['Subject'], parking:['Reporting','Format'], dwell:['Subjects'], choice:['Selection'], pause:['Brand'], shanghai:['Format','Places']};
+for (const [key, project] of Object.entries(projects)) {
+  if (!project.description?.trim()) failures.push(`Missing project description: ${key}`);
+  if (project.deck || project.story) failures.push(`Removed detail copy remains: ${key}`);
+  if (project.meta.some(([label]) => removedFacts[key]?.includes(label))) failures.push(`Removed metadata remains: ${key}`);
   for (const key of ['image', 'article', 'still']) if (project[key]) checkRef(scriptFile, project[key]);
   if (project.video) checkRef(scriptFile, project.video.player);
-  for (const [, ref] of project.actions) checkRef(scriptFile, ref);
+  for (const [label, ref] of project.actions) {
+    checkRef(scriptFile, ref);
+    if (label.includes('original portfolio')) failures.push(`Removed portfolio link remains: ${key}`);
+  }
 }
-for (const [type, total] of [['internship',8], ['photo',24]]) {
-  for (let i=1; i<=total; i++) checkRef(scriptFile, `./assets/gallery/${type}-${String(i).padStart(2,'0')}.jpg`);
+const gallerySource = script.slice(script.indexOf('const photography ='), script.indexOf('const galleryDialog ='));
+const {gallery, photography, photographyOrder} = vm.runInNewContext(`${gallerySource}; ({gallery, photography, photographyOrder})`, Object.create(null));
+const expectedInternshipLinks = [
+  [3, 'https://www.thepaper.cn/newsDetail_forward_32788899'],
+  [5, 'https://www.thepaper.cn/newsDetail_forward_33036593'],
+  [7, 'https://www.thepaper.cn/newsDetail_forward_33335354'],
+  [8, 'https://m.thepaper.cn/newsDetail_forward_33044587'],
+  [1, 'https://www.thepaper.cn/newsDetail_forward_33107850'],
+  [6, 'https://m.thepaper.cn/newsDetail_forward_33205440'],
+  [2, 'https://weixin.qq.com/sph/ACVLSvtLeK'],
+  [4, 'https://weixin.qq.com/sph/AHfnU8sLHZ']
+];
+if (gallery.internship.length !== expectedInternshipLinks.length || expectedInternshipLinks.some(([number,href],i) => gallery.internship[i]?.src !== `./assets/gallery/internship-${String(number).padStart(2,'0')}.jpg` || gallery.internship[i]?.href !== href || !gallery.internship[i]?.title)) failures.push('Internship order or work links do not match the requested sequence.');
+if (!index.includes('Click an image to view the work ↗')) failures.push('Missing internship click hint.');
+if (photographyOrder.length !== photography.length || new Set(photographyOrder).size !== photography.length || photographyOrder.some(number => !Number.isInteger(number) || number < 1 || number > photography.length)) failures.push('Photography order must include every photograph exactly once.');
+let galleryCount = 0;
+for (const [type, items] of Object.entries(gallery)) {
+  galleryCount += items.length;
+  if (new Set(items.map(item => item.src)).size !== items.length) failures.push(`Duplicate ${type} gallery entries.`);
+  const files = readdirSync(resolve(site, 'assets/gallery')).filter(name => new RegExp(`^${type}-\\d+\\.jpg$`).test(name));
+  if (files.length !== items.length) failures.push(`Gallery count mismatch: ${type}`);
+  for (const item of items) {
+    checkRef(scriptFile, item.src);
+    if (!item.caption.endsWith(`/${String(items.length).padStart(2,'0')}`)) failures.push(`Stale gallery counter: ${item.caption}`);
+  }
 }
 if (size >= 1024 ** 3) failures.push('Published site exceeds GitHub Pages 1 GiB limit.');
 if (failures.length) { console.error(failures.join('\n')); process.exit(1); }
-console.log(`PASS: 9 projects, 32 gallery images, ${segmentCount} HLS segments, ${count} files, ${(size / 1024 ** 2).toFixed(1)} MiB. All local references resolve.`);
+console.log(`PASS: 9 projects, ${galleryCount} gallery images (${gallery.photo.length} photographs), ${segmentCount} HLS segments, ${count} files, ${(size / 1024 ** 2).toFixed(1)} MiB. All local references resolve.`);

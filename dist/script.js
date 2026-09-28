@@ -7,100 +7,95 @@ const projects = {
   schools: {
     kicker: 'Data journalism work · 2026',
     title: 'Schools Disappearing from the Map: Farewells and Migration amid Rural Primary School Closures',
-    deck: 'What changes when a village school disappears from the map?',
     image: './assets/rural-schools.png',
     alt: 'Illustrated cover of the rural primary school closures project',
     meta: [['Role','Team leader · Editor · Writer · Graphic designer'],['Recognition','Excellence Award, Shanghai Division, 11th China Data Journalism Competition'],['Format','Interactive data journalism']],
-    story: [['The work','The project follows more than two decades of changes to rural primary schools. It brings together policy documents, public datasets, reported cases and interview materials to examine commuting, safety, relocation and vacant school buildings.'],['The data','Interactive charts make the changes visible while retaining important limits: inconsistent definitions across years and regions, as well as missing data.']],
+    description: 'Drawing on more than two decades of changes in the number of rural primary schools in China, this data journalism project combines policy documents, public datasets, reported cases, and interview material. It examines how school closures and consolidations affect commuting, transport safety, families relocating to accompany their children, and the reuse of vacant school buildings. Interactive charts present the wider trend while acknowledging inconsistent statistical definitions, regional differences, and missing data.',
+    justifyDescription: true,
     website: 'https://shendigitalnews.framer.website',
-    actions: [['Open interactive story ↗','https://shendigitalnews.framer.website'],['View original portfolio page ↗','https://shensportfolio.framer.website/journalism-projects/project-1']]
+    actions: [['Open interactive story ↗','https://shendigitalnews.framer.website']]
   },
   wanping: {
     kicker: 'In-depth reporting · 2025',
     title: 'No. 600, Wanping South Road: Estrangements and Struggles behind the “Wall”',
-    deck: 'An address often used as a joke becomes a starting point for reporting on mental illness and social acceptance.',
     image: './assets/wanping.png', alt: 'Cover of the Wanping South Road report',
     meta: [['Role','Team leader · Editor · Reporter'],['Reporting','One patient living with mental illness and one social worker'],['Recognition','Award in Public-Interest Communication, Fifth College Campus Media Competition (non-ranked category)']],
-    story: [['The work','The report looks at employment, family relationships and community life through the experiences of one patient and one social worker. Their accounts complicate the shorthand often attached to the hospital address.']],
+    description: 'The report begins with “No. 600 Wanping South Road”, an address often used jokingly in Shanghai as shorthand for mental illness. Through conversations with one person living with mental illness and one frontline social worker, it examines employment, family relationships, community life, and social acceptance after a patient’s condition has stabilised.',
+    justifyDescription: true,
     article: './assets/wanping-article.jpg',
-    actions: [['View original portfolio page ↗','https://shensportfolio.framer.website/journalism-projects/project-2']]
+    actions: []
   },
   accessibility: {
     kicker: 'In-depth reporting · 2026',
     title: 'When “Accessibility” Goes Beyond Tactile Paving: How Can We See Each Other Eye to Eye?',
-    deck: 'A report on participation, expression and access through disabled and non-disabled dance.',
     image: './assets/accessibility-cover.png', alt: 'Cover of the accessibility report',
-    meta: [['Role','Reporter · Editor · Writer'],['Subject','Embodied Moment (此时舞身)'],['Format','In-depth reporting']],
-    story: [['The work','The report follows Embodied Moment, a dance practice involving disabled and non-disabled people. It considers access to venues and information alongside the less visible question of who has room to express themselves.'],['The question','Sharing a room does not automatically mean participating on equal terms. The story stays with that gap.']],
+    meta: [['Role','Reporter · Editor · Writer'],['Format','In-depth reporting']],
+    description: 'Using the disability-inclusive dance initiative Embodied Moment (此时舞身) as its entry point, the report observes how disabled and non-disabled participants share a dance class. It then asks whether the venue, access to information, and opportunities for expression are genuinely accessible. Revealing the distance that can remain between being present in the same room and participating on equal terms.',
+    justifyDescription: true,
     article: './assets/accessibility-article.png',
-    actions: [['View original portfolio page ↗','https://shensportfolio.framer.website/journalism-projects/project-3']]
+    actions: []
   },
   doxxing: {
     kicker: 'Convergence journalism · 2025',
     title: 'Who Doxxed Me?',
-    deck: 'An interactive look at doxxing, personal-data leaks and online abuse in China.',
     image: './assets/doxxing-cover.png', alt: 'Who Doxxed Me? cover',
-    meta: [['Role','Team leader · Editor · Writer'],['Format','Interactive web page and WeChat version'],['Subject','“Kaihe” doxxing and personal-data risks']],
-    story: [['The work','The team combined public cases, official notices and expert commentary to trace how personal information moves through an illicit chain and becomes a tool of harassment.'],['The experience','An information-chain map, risk profile and interactive quiz turn the reporting into a navigable experience.']],
+    meta: [['Role','Team leader · Editor · Writer'],['Format','Interactive web page and WeChat version']],
+    description: 'The project examines “kaihe”—the Chinese online term for doxxing—alongside personal-data leaks and online abuse. It uses publicly reported cases, a map of the illicit information chain, official notices, published expert commentary, a risk profile, and an interactive quiz to explain how personal information is collected, traded, and circulated. Its interactive webpage and WeChat versions place readers in recognisable situations, helping them identify risks and find practical guidance.',
+    justifyDescription: true,
     article: './assets/doxxing-article.png',
-    actions: [['View original portfolio page ↗','https://shensportfolio.framer.website/journalism-projects/project-4']]
+    actions: []
   },
   parking: {
     kicker: 'Television news program · 2025',
     title: 'Working Together to Address Disorderly Campus Parking',
-    deck: 'A campus news report following the everyday effects of disorderly bicycle parking.',
     image: './assets/parking-cover.png', alt: 'Campus parking report cover',
-    meta: [['Role','Reporter · Video editor'],['Reporting','Campus security and logistics staff, cycling students and faculty'],['Format','Television news']],
-    story: [['The work','The report checks existing parking rules and responsibilities against what students, faculty and campus staff experience on the ground.'],['Follow-up','A return visit one month later found new measures in place.']],
+    meta: [['Role','Reporter · Video editor']],
+    description: 'Haphazard parking of bicycles and e-bikes has long been among the top concerns of students and faculty at the East China University of Political Science and Law (ECUPL). The reporter interviewed campus security and logistics staff alongside cycling students and faculty, and checked parking rules and departmental responsibilities across locations and time slots. One month after those interviews, follow-up reporting found the university had in fact rolled out new management measures.',
+    justifyDescription: true,
     video: {player:'./media/parking/index.html'},
-    actions: [['Open video ↗','./media/parking/index.html'],['View original portfolio page ↗','https://shensportfolio.framer.website/journalism-projects/project-5']]
+    actions: [['Open video ↗','./media/parking/index.html']]
   },
   dwell: {
     kicker: 'Documentary · 2026',
     title: 'Dwell',
-    deck: 'Three people, one Shanghai co-living community, and different ways of living with the city.',
     image: './assets/dwell-poster.png', alt: 'Dwell documentary poster', poster: true,
-    meta: [['Role','Director · Producer · Cinematographer · Editor'],['Subjects','Zhou Shuai · Fufu · Dagou'],['Format','Documentary']],
-    story: [['The work','This Chinese micro-documentary follows three people in a Shanghai shared-living community. Observational and participatory filming brings their work, relationships and everyday routines into the frame.'],['The question','What does it mean to find a place to live—and a sense of belonging—while the city keeps changing around you?']],
+    meta: [['Role','Director · Producer · Cinematographer · Editor'],['Format','Documentary']],
+    description: 'This Chinese micro-documentary focuses on the Dweller co-living community in Shanghai, employing a blend of observational and participatory filmmaking. The film follows three young people at different stages of life—Zhou Shuai, Fufu, and Dagou—as it documents their urban lives and work, their interpersonal bonds and solitude, their construction of belonging, and their journey of self-discovery and spiritual anchoring amidst the noise of the city.',
     video: {player:'./media/dwell/index.html'},
-    actions: [['Open film ↗','./media/dwell/index.html'],['View original portfolio page ↗','https://shensportfolio.framer.website/creative-media-projects/project-6']]
+    actions: [['Open film ↗','./media/dwell/index.html']]
   },
   choice: {
     kicker: 'Narrative fiction microfilm · 2024',
     title: 'A Moment’s Choice',
-    deck: 'A fiction short based on a team member’s experience of a scam.',
     image: './assets/moments-choice.jpeg', alt: 'A Moment’s Choice film poster', poster: true,
-    meta: [['Role','Director · Producer · Cinematographer · Editor'],['Recognition','First Prize, video category, Second Qinglan Cup Campus Media Legal Works Competition'],['Selection','ECUPL Feiniao Exhibition']],
-    story: [['The work','A university student meets someone through a shared interest in photography. The story follows how connection and trust can be manipulated.'],['The approach','The film adapts a real experience from the team into narrative fiction rather than presenting it as a direct record.']],
+    meta: [['Role','Director · Producer · Cinematographer · Editor'],['Recognition','First Prize in the Video Category, Second Qinglan Cup Campus Media Legal Works Competition; Selected for ECUPL’s Feiniao Exhibition.']],
+    description: "Adapted from a real scam endured by one of the team members, the film traces a university student's slow entanglement with a stranger. They bond over photography; what starts as innocent conversation quietly evolves into an elaborate trap. The film looks unflinchingly at how trust operates—and how effortlessly it can be turned against us.",
     video: {player:'./media/choice/index.html'},
-    actions: [['Open film ↗','./media/choice/index.html'],['View original portfolio page ↗','https://shensportfolio.framer.website/creative-media-projects/project-7']]
+    actions: [['Open film ↗','./media/choice/index.html']]
   },
   pause: {
     kicker: 'Micro-film advertisement · 2025',
     title: 'Hey, Press Pause',
-    deck: 'A short film for Nyota under Pop Mart, built around moments of pressure and pause.',
     image: './assets/press-pause.jpg', alt: 'Hey, Press Pause film still',
-    meta: [['Role','Director · Cinematographer · Editor'],['Brand','Nyota under Pop Mart'],['Format','Micro-film advertisement']],
-    story: [['The work','Three stories touch on academia, career and family. A childhood photograph, a cat, a celebrity and a parallel universe become small interruptions to everyday pressure.']],
-    still: './assets/press-pause.jpg',
-    actions: [['View original portfolio page ↗','https://shensportfolio.framer.website/creative-media-projects/project-8']]
+    meta: [['Role','Director · Cinematographer · Editor'],['Format','Micro-film advertisement']],
+    description: 'This short film is written for Nyota, an IP under Pop Mart. Three narrative threads mirror the weight of academia, career, and family. A childhood photograph, a cat, a celebrity, and a parallel universe—these delicate yet profound images together render Nyota an emotional pause. They allow the fragments of life long obscured by constant pressure to resurface, and gently remind us that amid the relentless torrent of daily existence, we all need to stop and rediscover ourselves.',
+    video: {player:'./media/pause/index.html'},
+    actions: [['Open film ↗','./media/pause/index.html']]
   },
   shanghai: {
     kicker: 'AI short film · 2026',
     title: 'Shanghai, Inherited and Reimagined',
-    deck: 'A 65-second vertical animation linking Shanghai’s architectural past and present.',
     image: './assets/shanghai-ai.png', alt: 'Shanghai, Inherited and Reimagined poster', poster: true,
-    meta: [['Role','Author'],['Format','65-second vertical animation'],['Places','Yuyuan · Shikumen · St John’s University · the Bund · Lujiazui']],
-    story: [['The work','Leo travels through five places in Shanghai. Architecture connects Jiangnan roots, cross-cultural modern history and the contemporary city.']],
+    meta: [['Role','Author']],
+    description: "This 65-second vertical animation follows a young man named Leo as he travels through Shanghai's Yuyuan Garden, Shikumen neighborhoods, Saint John's University, the Bund, and Lujiazui. As scenes shift, architecture becomes the backbone of the narrative—linking the city's Jiangnan cultural roots, its modern history of cross-cultural encounter, and the creative energy of its contemporary urban landscape. Against the reductive international portrayal of Shanghai as merely a financial hub with a futuristic skyline, I choose architecture as the visual entry point for cultural expression, letting the spaces speak for themselves, free from extra layers of cultural translation.",
     video: {player:'./media/shanghai/index.html',portrait:true},
-    actions: [['Open film ↗','./media/shanghai/index.html'],['View original portfolio page ↗','https://shensportfolio.framer.website/creative-media-projects/project-9']]
+    actions: [['Open film ↗','./media/shanghai/index.html']]
   }
 };
 
 const projectDialog = document.querySelector('#project-dialog');
 const projectHero = document.querySelector('#dialog-hero');
 const projectMeta = document.querySelector('#dialog-meta');
-const projectStory = document.querySelector('#dialog-story');
 const projectActions = document.querySelector('#dialog-actions');
 const projectWork = document.querySelector('#dialog-work');
 
@@ -129,9 +124,7 @@ function openProject(key) {
   heroImage.src = project.image;
   heroImage.alt = project.alt;
   projectHero.append(heroImage);
-  document.querySelector('#dialog-kicker').textContent = `${String(Object.keys(projects).indexOf(key) + 1).padStart(2, '0')} / SELECTED WORK`;
   document.querySelector('#dialog-title').textContent = project.title;
-  document.querySelector('#dialog-deck').textContent = project.deck;
   projectMeta.replaceChildren();
   const [workType, year = ''] = project.kicker.split('·').map(part => part.trim());
   const role = project.meta.find(([label]) => label === 'Role')?.[1];
@@ -141,17 +134,7 @@ function openProject(key) {
   for (const [label, value] of project.meta) {
     if (label !== 'Role' && !(label === 'Format' && value.toLowerCase() === workType.toLowerCase())) addProjectFact(label, value);
   }
-  addProjectFact('Project description', project.story[0]?.[1] || project.deck, 'dialog-fact-description');
-  projectStory.replaceChildren();
-  for (const [heading, copy] of project.story.slice(1)) {
-    const section = document.createElement('section');
-    const h = document.createElement('h3');
-    const p = document.createElement('p');
-    h.textContent = heading;
-    p.textContent = copy;
-    section.append(h, p);
-    projectStory.append(section);
-  }
+  addProjectFact('Project description', project.description, `dialog-fact-description${project.justifyDescription ? ' is-justified' : ''}`);
   projectActions.replaceChildren();
   for (const [label, href] of project.actions) {
     const a = document.createElement('a');
@@ -161,6 +144,7 @@ function openProject(key) {
     a.rel = 'noopener noreferrer';
     projectActions.append(a);
   }
+  projectActions.hidden = project.actions.length === 0;
   projectWork.classList.toggle('is-portrait', !!project.video?.portrait);
   projectWork.classList.toggle('is-video', !!project.video);
   let previewTitle = 'Selected still';
@@ -197,7 +181,9 @@ function openProject(key) {
     image.className = 'dialog-film-still';
     projectWork.append(image);
   }
-  document.querySelector('#dialog-preview-title').textContent = previewTitle;
+  const previewHeading = document.querySelector('#dialog-preview-title');
+  previewHeading.textContent = project.website ? '' : previewTitle;
+  previewHeading.hidden = !!project.website;
   projectDialog.showModal();
   projectDialog.scrollTop = 0;
 }
@@ -207,9 +193,51 @@ projectDialog.querySelector('.dialog-close').addEventListener('click', () => pro
 projectDialog.addEventListener('click', event => { if (event.target === projectDialog) projectDialog.close(); });
 projectDialog.addEventListener('close', stopProjectMedia);
 
+const photography = [
+  ...[
+    [1024,683], [1024,683], [683,1024], [1024,683],
+    [1024,683], [683,1024], [1024,683], [683,1024],
+    [683,1024], [1024,684], [684,1024], [684,1024],
+    [768,1024], [576,1024], [683,1024], [576,1024],
+    [768,1024], [1024,683], [682,1024], [1024,682],
+    [683,1024], [1024,439], [683,1024], [683,1024]
+  ].map(([width,height],i) => ({src:`./assets/gallery/photo-${String(i+1).padStart(2,'0')}.jpg`,width,height})),
+  ...[
+    [25,4672,7008,'Close-up of a bearded stone sculpture against a dark background'],
+    [26,4672,7008,'Stone torso sculpture against a deep red wall'],
+    [27,4568,6852,'Harbour buildings and boats framed by a window and a passenger silhouette'],
+    [28,5781,3854,'Illuminated city buildings and a busy street at night'],
+    [29,4032,6048,'Two people standing together at a fence beneath a wide blue sky'],
+    [30,6206,4137,'Visitors silhouetted against a large aquarium tank'],
+    [31,7008,4672,'Palm tree beside a bright yellow storefront in warm sunlight'],
+    [32,4339,6509,'Two people walking towards a pavilion on a grassy hillside'],
+    [33,4067,6101,'Orange and white building facade lit by warm afternoon light'],
+    [34,3740,5610,'Red taxi passing a white building with repeating windows and arches'],
+    [35,4443,6664,'A tabby cat walking beside a shop sign'],
+    [36,4096,1754,'Pale spring blossoms framed by a dark window and patterned railing']
+  ].map(([number,width,height,alt]) => ({src:`./assets/gallery/photo-${number}.jpg`,width,height,alt}))
+];
+// Warm street colour gives way to shadow, cool daylight, then pale blossoms.
+// Keep source filenames stable; this one sequence drives both tiles and viewer.
+const photographyOrder = [
+  34, 31, 33, 6, 2, 13, 5, 23, 25, 26, 11, 10,
+  12, 27, 8, 3, 28, 30, 18, 9, 15, 29, 32, 4,
+  1, 24, 35, 7, 14, 17, 16, 19, 20, 21, 22, 36
+];
+// News interviews first, the reported feature next, then the two TVCs.
+const internshipPrograms = [
+  [3, '欧阳奋强', 'https://www.thepaper.cn/newsDetail_forward_32788899'],
+  [5, '柳大华', 'https://www.thepaper.cn/newsDetail_forward_33036593'],
+  [7, '丁俊辉', 'https://www.thepaper.cn/newsDetail_forward_33335354'],
+  [8, '许纪霖', 'https://m.thepaper.cn/newsDetail_forward_33044587'],
+  [1, '邓亚萍', 'https://www.thepaper.cn/newsDetail_forward_33107850'],
+  [6, '孤独堡垒', 'https://m.thepaper.cn/newsDetail_forward_33205440'],
+  [2, '麻得很', 'https://weixin.qq.com/sph/ACVLSvtLeK'],
+  [4, '天弘基金走进产业', 'https://weixin.qq.com/sph/AHfnU8sLHZ']
+];
 const gallery = {
-  internship: [2,3,4,5,6,7,8,1].map((n,i) => ({src:`./assets/gallery/internship-${String(n).padStart(2,'0')}.jpg`, caption:`Internship programs · ${String(i+1).padStart(2,'0')}/08`})),
-  photo: Array.from({length:24}, (_,i) => ({src:`./assets/gallery/photo-${String(i+1).padStart(2,'0')}.jpg`, caption:`Recent photography · ${String(i+1).padStart(2,'0')}/24`}))
+  internship: internshipPrograms.map(([number,title,href],i) => ({src:`./assets/gallery/internship-${String(number).padStart(2,'0')}.jpg`, title, href, alt:title, caption:`Internship programs · ${String(i+1).padStart(2,'0')}/08`})),
+  photo: photographyOrder.map((number,i) => ({...photography[number-1], caption:`Recent photography · ${String(i+1).padStart(2,'0')}/${photography.length}`}))
 };
 const galleryDialog = document.querySelector('#gallery-dialog');
 const galleryZoom = galleryDialog.querySelector('.gallery-zoom');
@@ -233,7 +261,7 @@ function showGalleryImage() {
   const item = gallery[galleryKind][galleryIndex];
   const image = document.querySelector('#gallery-image');
   image.src = item.src;
-  image.alt = item.caption;
+  image.alt = item.alt || item.caption;
   document.querySelector('#gallery-caption').textContent = item.caption;
 }
 function openGallery(kind, index) {
@@ -251,28 +279,79 @@ function moveGallery(delta) {
 for (const [kind, containerId] of [['internship','internship-grid'],['photo','photo-grid']]) {
   const container = document.getElementById(containerId);
   gallery[kind].forEach((item, index) => {
-    const button = document.createElement('button');
-    button.className = 'gallery-tile';
-    button.type = 'button';
-    button.setAttribute('aria-label', `View ${item.caption}`);
-    if (kind === 'internship' && item.src.endsWith('internship-04.jpg')) button.classList.add('landscape');
+    const tile = document.createElement(item.href ? 'a' : 'button');
+    tile.className = 'gallery-tile';
+    if (item.href) {
+      tile.href = item.href;
+      tile.target = '_blank';
+      tile.rel = 'noopener noreferrer';
+      tile.setAttribute('aria-label', `View ${item.title} (opens in a new tab)`);
+    } else {
+      tile.type = 'button';
+      tile.setAttribute('aria-label', `View ${item.caption}`);
+      tile.addEventListener('click', () => openGallery(kind, index));
+    }
+    if (kind === 'internship' && item.src.endsWith('internship-04.jpg')) tile.classList.add('landscape');
     const image = document.createElement('img');
     image.src = item.src;
-    image.alt = item.caption;
+    image.alt = item.alt || item.caption;
     image.loading = 'lazy';
-    button.append(image);
-    button.addEventListener('click', () => openGallery(kind, index));
-    container.append(button);
+    image.decoding = 'async';
+    if (item.width && item.height) {
+      image.width = item.width;
+      image.height = item.height;
+      if (kind === 'photo') tile.style.setProperty('--photo-ratio', item.width / item.height);
+    }
+    tile.append(image);
+    container.append(tile);
   });
 }
 
+// Justified rows preserve the left-to-right sequence and every image's full frame.
+const photoGrid = document.querySelector('#photo-grid');
+const photoTiles = [...photoGrid.children];
+let photoLayoutWidth = 0;
+let photoLayoutGap = -1;
+function layoutPhotography() {
+  const width = photoGrid.clientWidth;
+  const gap = Number.parseFloat(getComputedStyle(photoGrid).rowGap) || 0;
+  if (!width || (Math.abs(width - photoLayoutWidth) < .5 && gap === photoLayoutGap)) return;
+  photoLayoutWidth = width;
+  photoLayoutGap = gap;
+  const targetHeight = width <= 450 ? 220 : width <= 850 ? 300 : 340;
+  const rows = [];
+  let index = 0;
+  while (index < photoTiles.length) {
+    const start = index;
+    let ratio = 0;
+    while (index < photoTiles.length) {
+      const item = gallery.photo[index];
+      const nextRatio = ratio + item.width / item.height;
+      const rowCount = index - start;
+      const nextHeight = (width - gap * rowCount) / nextRatio;
+      const currentHeight = (width - gap * Math.max(0, rowCount - 1)) / ratio;
+      if (ratio && nextHeight <= targetHeight && Math.abs(currentHeight - targetHeight) < Math.abs(nextHeight - targetHeight)) break;
+      ratio = nextRatio;
+      index++;
+      if (nextHeight <= targetHeight) break;
+    }
+    const row = document.createElement('div');
+    row.className = 'photo-row';
+    row.style.height = `${(width - gap * (index - start - 1)) / ratio}px`;
+    row.append(...photoTiles.slice(start, index));
+    rows.push(row);
+  }
+  photoGrid.replaceChildren(...rows);
+}
+layoutPhotography();
+new ResizeObserver(() => requestAnimationFrame(layoutPhotography)).observe(photoGrid);
+
 const internshipRail = document.querySelector('#internship-grid');
 const internshipCards = [...internshipRail.children];
-internshipCards.forEach((card, index) => {
+internshipCards.forEach(card => {
   const copy = card.cloneNode(true);
   copy.setAttribute('aria-hidden', 'true');
   copy.tabIndex = -1;
-  copy.addEventListener('click', () => openGallery('internship', index));
   internshipRail.append(copy);
 });
 
