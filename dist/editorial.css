@@ -29,7 +29,7 @@ html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-h
 .hero-cover:nth-child(5){left:auto;right:-1%;top:43%;bottom:auto;width:52%;--tilt:-5deg;z-index:5}
 .hero-cover:nth-child(6){left:0;right:auto;top:auto;bottom:0;width:34%;--tilt:-7deg;z-index:7}
 .hero-cover:nth-child(7){left:34%;right:auto;top:auto;bottom:1%;width:32%;--tilt:7deg;z-index:8}
-.hero-cover:nth-child(8){left:10%;right:auto;top:57%;bottom:auto;width:48%;--tilt:9deg;z-index:6}
+.hero-cover:nth-child(8){left:16%;right:auto;top:48%;bottom:auto;width:30%;--tilt:9deg;z-index:6}
 .hero-cover:nth-child(9){left:auto;right:0;top:auto;bottom:0;width:32%;--tilt:-4deg;z-index:7}
 .hero-cover:is(:hover,:focus-visible){z-index:30;transform:translateY(-.35rem) rotate(0);box-shadow:0 .8rem 1.5rem rgba(28,27,24,.25);outline:2px solid var(--orange)}
 
@@ -70,6 +70,8 @@ html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-h
 .creative-grid .work-card:nth-child(n){grid-column:auto!important;display:block;width:100%;margin:0;align-self:start;justify-self:stretch}
 .creative-grid .work-card:nth-child(n) .work-image{display:grid;place-items:center;aspect-ratio:3/4;background:transparent}
 .creative-grid .work-image img{width:100%;height:100%;object-fit:contain;background:transparent}
+.creative-grid .work-card[data-project="pause"] .work-image{position:relative}
+.creative-grid .work-card[data-project="pause"] .work-image img{position:absolute;inset:0;width:100%;height:100%;min-height:0;object-fit:contain}
 .creative-grid .work-card:nth-child(n) .work-info{margin-top:1.05rem;grid-template-rows:auto auto;align-items:start}
 .creative-grid .work-info strong{max-width:24ch}
 
@@ -155,7 +157,7 @@ html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-h
   .work-no{font-size:.65rem}
   .creative-grid .work-card:nth-child(n){width:100%;margin-inline:0!important}
   .creative-grid .work-card:nth-child(1) .work-image,.creative-grid .work-card:nth-child(2) .work-image{aspect-ratio:724/1024}
-  .creative-grid .work-card:nth-child(3) .work-image{aspect-ratio:16/9}
+  .creative-grid .work-card:nth-child(3) .work-image{aspect-ratio:1109/1963}
   .creative-grid .work-card:nth-child(4) .work-image{aspect-ratio:576/1024}
   .archive-heading{display:block;margin-top:0}.archive-heading h3{font-size:2.25rem}
   .archive-heading-internship{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem}
