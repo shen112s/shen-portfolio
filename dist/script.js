@@ -79,11 +79,11 @@ const projects = {
   pause: {
     kicker: 'Micro-film advertisement · 2025',
     title: 'Hey, Press Pause',
-    image: './assets/press-pause.jpg', alt: 'Hey, Press Pause film still',
+    image: './assets/press-pause-remaster-20260929.jpg', alt: 'Hey, Press Pause cover',
     meta: [['Role','Director · Cinematographer · Editor'],['Format','Micro-film advertisement']],
     description: 'This short film is written for Nyota, an IP under Pop Mart. Three narrative threads mirror the weight of academia, career, and family. A childhood photograph, a cat, a celebrity, and a parallel universe—these delicate yet profound images together render Nyota an emotional pause. They allow the fragments of life long obscured by constant pressure to resurface, and gently remind us that amid the relentless torrent of daily existence, we all need to stop and rediscover ourselves.',
-    video: {player:'./media/pause/index.html'},
-    actions: [['Open film ↗','./media/pause/index.html']]
+    video: {player:'./media/pause/index.html?v=20260929-1'},
+    actions: [['Open film ↗','./media/pause/index.html?v=20260929-1']]
   },
   shanghai: {
     kicker: 'AI short film · 2026',

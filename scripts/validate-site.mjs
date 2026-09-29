@@ -44,7 +44,16 @@ if (/localhost|127\.0\.0\.1|\.\.\/\.\.\//.test(script)) failures.push('Script st
 const projectsSource = script.slice(script.indexOf('const projects ='), script.indexOf('const projectDialog ='));
 const projects = vm.runInNewContext(`${projectsSource}; projects`, Object.create(null));
 if (Object.keys(projects).length !== 9) failures.push('Expected nine projects.');
-if (projects.pause.video?.player !== './media/pause/index.html' || projects.pause.still) failures.push('Hey, Press Pause must use its temporary local film player.');
+if (projects.pause.video?.player !== './media/pause/index.html?v=20260929-1' || projects.pause.still) failures.push('Hey, Press Pause must use its remastered local film player.');
+const pauseCover = './assets/press-pause-remaster-20260929.jpg';
+const pausePlayer = readFileSync(resolve(site, 'media/pause/index.html'), 'utf8');
+const pauseCovers = [...index.matchAll(/data-project="pause"[^>]*>[\s\S]*?<img src="([^"]+)"/g)];
+if (projects.pause.image !== pauseCover || pauseCovers.length !== 2 || pauseCovers.some(match => match[1] !== pauseCover) || !pausePlayer.includes('poster="../../assets/press-pause-remaster-20260929.jpg"')) failures.push('Every Pause cover must use the supplied remastered poster.');
+if (!pausePlayer.includes("const source = './hls-remaster-20260929/index.m3u8';")) failures.push('Pause player must load the remastered video playlist.');
+const pausePlaylist = readFileSync(resolve(site, 'media/pause/hls-remaster-20260929/index.m3u8'), 'utf8');
+const pauseDuration = [...pausePlaylist.matchAll(/#EXTINF:([\d.]+)/g)].reduce((sum, match) => sum + Number(match[1]), 0);
+if (Math.abs(pauseDuration - 179.896396) > 0.1) failures.push('Pause remaster must preserve the complete source duration.');
+if (/press-pause\.jpg/.test(index + script + pausePlayer) || existsSync(resolve(site, 'media/pause/hls'))) failures.push('Superseded Pause media must not remain in the published site.');
 const workLabels = [...index.matchAll(/class="work-no">([^<]+)</g)].map(match => match[1]);
 if (workLabels.length !== 9 || workLabels.some(label => /^\d+\s*\//.test(label) || !/\/\s*20\d{2}$/.test(label))) failures.push('Work labels must show only type and year for all nine projects.');
 if (/id="dialog-(?:deck|story)"|THE WORK/.test(index)) failures.push('Removed detail scaffolding remains in the page.');

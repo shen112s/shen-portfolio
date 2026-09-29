@@ -15,13 +15,13 @@
   </style>
 </head>
 <body>
-  <video id="film" controls playsinline preload="metadata" poster="../../assets/press-pause.jpg" aria-label="Hey, Press Pause video"></video>
+  <video id="film" controls playsinline preload="metadata" poster="../../assets/press-pause-remaster-20260929.jpg" aria-label="Hey, Press Pause video"></video>
   <p class="playback-error" id="playback-error" role="status" hidden>This video could not be loaded. Please reload this page.</p>
   <script src="../choice/assets/hls.min.js"></script>
   <script>
     const video = document.getElementById('film');
     const playbackError = document.getElementById('playback-error');
-    const source = './hls/index.m3u8';
+    const source = './hls-remaster-20260929/index.m3u8';
     video.addEventListener('error', () => { playbackError.hidden = false; });
     video.addEventListener('playing', () => { playbackError.hidden = true; });
     if (video.canPlayType('application/vnd.apple.mpegurl')) {
