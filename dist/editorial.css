@@ -1,5 +1,5 @@
 /* Editorial yearbook: field notebook, film contact sheet, visual archive. */
-:root{--paper:#f4f0e8;--pale:#eae4d8;--ink:#1c1b18;--muted:#635f58;--orange:#df552f;--accent-ink:#bd4128;--line:rgba(28,27,24,.22);--serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;--sans:"Avenir Next","Helvetica Neue",Arial,sans-serif;--mono:Menlo,Consolas,monospace;--ease:cubic-bezier(.22,1,.36,1)}
+:root{--paper:#f4f0e8;--pale:#eae4d8;--ink:#1c1b18;--muted:#635f58;--line:rgba(28,27,24,.22);--serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;--sans:"Avenir Next","Helvetica Neue",Arial,sans-serif;--mono:Menlo,Consolas,monospace;--ease:cubic-bezier(.22,1,.36,1)}
 body{background:var(--paper);font-family:var(--sans);padding-top:var(--site-header-height,5rem)}
 html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-header-height,5rem)}
 
@@ -8,7 +8,7 @@ html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-h
 .wordmark{color:var(--orange);font:700 clamp(.85rem,1.05vw,1rem)/1.02 var(--sans);letter-spacing:.075em}
 .site-nav{gap:clamp(1.65rem,3.3vw,3.75rem)}
 .site-nav a{font:700 .7rem/1.2 var(--sans);letter-spacing:.09em;padding:.45rem 0;text-transform:uppercase}
-.site-nav a:hover,.site-nav a:focus-visible{color:var(--accent-ink);border-color:var(--accent-ink)}
+.site-nav a:hover,.site-nav a:focus-visible{color:var(--orange);border-color:var(--orange)}
 
 /* The opening wall is the only deliberately loose composition. */
 .hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:calc(100dvh - var(--site-header-height,5rem));min-height:0;border-bottom:0}
@@ -70,8 +70,6 @@ html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-h
 .creative-grid .work-card:nth-child(n){grid-column:auto!important;display:block;width:100%;margin:0;align-self:start;justify-self:stretch}
 .creative-grid .work-card:nth-child(n) .work-image{display:grid;place-items:center;aspect-ratio:3/4;background:transparent}
 .creative-grid .work-image img{width:100%;height:100%;object-fit:contain;background:transparent}
-.creative-grid .work-card[data-project="pause"] .work-image{position:relative}
-.creative-grid .work-card[data-project="pause"] .work-image img{position:absolute;inset:0;width:100%;height:100%;min-height:0;object-fit:cover;object-position:50% 20%}
 .creative-grid .work-card:nth-child(n) .work-info{margin-top:1.05rem;grid-template-rows:auto auto;align-items:start}
 .creative-grid .work-info strong{max-width:24ch}
 
@@ -90,25 +88,23 @@ html{scroll-padding-top:0;overflow-x:clip}section{scroll-margin-top:var(--site-h
 .internship-grid .gallery-tile.landscape{flex-basis:clamp(20rem,36vw,30rem)}
 .photo-grid{--photo-gap:10px;display:flex;flex-direction:column;gap:var(--photo-gap);columns:auto}
 .photo-row{display:flex;width:100%;gap:var(--photo-gap)}
-/* Grow weights must total at least one, including a single portrait in a row. */
-.photo-grid .gallery-tile{flex:calc(var(--photo-ratio) * 100) 1 0;width:auto;min-width:0;margin:0;align-self:stretch}
+.photo-grid .gallery-tile{flex:0 0 auto;width:auto;min-width:0;margin:0;align-self:stretch}
 .photo-grid img{width:100%;height:100%;object-fit:contain}
 .gallery-tile:hover img{transform:none;opacity:.84}
 .site-footer{justify-content:flex-start;font:700 .68rem/1.4 var(--mono);letter-spacing:.04em}
 .gallery-close,.gallery-nav,.gallery-zoom{border-radius:0}
 .dialog-content{width:calc(100% - clamp(2rem,7cqi,5rem));padding:clamp(2rem,4cqi,3.5rem) 0 clamp(3rem,6cqi,5rem)}
 .dialog-content h2{width:100%;max-width:none;font-size:clamp(2.25rem,7cqi,6rem);letter-spacing:-.07em;text-wrap:wrap;overflow-wrap:break-word}.dialog-fact dd{font-family:var(--serif)}
-.dialog-fact-description.is-justified dd{text-align:justify;text-align-last:left;hyphens:auto;overflow-wrap:break-word}
 .dialog-overview{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center;gap:clamp(1.5rem,3.5vw,4rem);margin-top:clamp(2rem,4vw,3.5rem)}
 .dialog-hero{align-items:center;padding:0;border:0;background:transparent}
 .dialog-hero img{width:100%;height:auto;max-height:none}
 .dialog-hero.poster img{width:auto;height:auto;max-width:100%;max-height:38rem}
 .dialog-actions a{font-family:var(--sans);font-size:.75rem}
 .dialog-topbar{justify-content:flex-end;min-height:3.5rem;padding:.65rem clamp(1rem,3.5cqi,2.5rem)}
-.dialog-fact dt{color:var(--accent-ink)}
+.dialog-fact dt{color:var(--orange)}
 .dialog-preview-heading:has(#dialog-preview-title[hidden]){justify-content:flex-end}
 .dialog-preview-heading [hidden]{display:none}
-.dialog-actions a:hover{background:var(--accent-ink);border-color:var(--accent-ink);color:var(--paper)}
+.dialog-actions a:hover{background:var(--orange);border-color:var(--orange);color:var(--ink)}
 /* Fit complete players below the close bar, even after the window is resized. */
 .dialog-content:has(.dialog-work.is-video){padding-bottom:2rem}
 .dialog-work.is-video iframe{width:min(100%,calc((100cqh - 5.5rem) * 16 / 9));min-height:0;max-height:none;margin:0 auto}

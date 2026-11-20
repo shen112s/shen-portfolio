@@ -1,5 +1,9 @@
 # Portfolio design direction
 
+## Current local redesign
+
+The local preview uses a warm vintage screen and physical archive direction. The opening TV presents one project cover at a time with a short channel flash, 2.8-second cycling, pause and previous/next controls. The two work chapters use cover layouts with type filters; the project dialog supports previous/next browsing. Keep reduced-motion behavior, mobile layouts and the resizable detail window. The TV and equipment illustrations are generated decorative assets, not documentary images. The public site remains on the previous design until explicitly published.
+
 Concept: an editorial field notebook meets a film contact sheet.
 Audience: journalism and creative-media editors, graduate admissions reviewers.
 Primary job: identify the work quickly, then open a readable project detail.
@@ -27,7 +31,7 @@ Primary job: identify the work quickly, then open a readable project detail.
 
 - Cover fills one viewport below the header: centered orange title at left, enlarged real-cover collage at right. Images use intrinsic height at every breakpoint; the collage is above its background and may extend beyond its frame.
 - Journalism: orange chapter header, paper work sheet, one lead plus two balanced pairs.
-- Creative media: pale chapter, two equal columns on a paper work sheet, with captions below each image. Use a shared 3:4 portrait display area to align captions within each pair; switch to one column at 650px and below. The Pause work-card poster explicitly fills this area using proportion-preserving cover cropping, positioned at 50% 20% to retain its brand lettering. On mobile its 724:1024 frame matches the Dwell and Choice cards. This crop applies only to the Creative media card, never the hero, detail image or video poster.
+- Video creation: use a shared 3:4 display area for the portrait posters. Fit each supplied poster within that area so the full image remains visible at its original proportions.
 - Visual archive: the same orange ground as Journalism, a paper sheet inside, a horizontal internship rail, and larger photographs in proportion-preserving rows with uniform 10px gaps.
 - Section rails, archive explanatory captions, the hero period, and footer copyright are removed as requested.
 - Detail: a centered editorial window, at most 1152px wide, with viewport-adaptive 16–48px outer gutters and its own vertical scrollbar. Keep the close bar sticky and lock the background scroll. Mouse users can resize from the lower-right corner; narrow windows switch to a single column at 704px and stack fact labels at 544px. Keep original media proportions, size complete players to the actual window height, and reserve long articles' intrinsic dimensions before loading. Remove decks, extra story sections, original-portfolio links and THE WORK labels; preserve recognition and actual media/source links.

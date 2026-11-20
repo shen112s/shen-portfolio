@@ -3,25 +3,57 @@ const syncHeaderHeight = () => document.documentElement.style.setProperty('--sit
 syncHeaderHeight();
 new ResizeObserver(syncHeaderHeight).observe(siteHeader);
 
+// Each chapter has its own address while retaining the simple static-site setup.
+const chapters = ['home', 'about', 'journalism', 'creative', 'photography', 'internship'];
+function showChapter() {
+  const name = location.hash === '#others' ? 'internship' : location.hash.slice(1);
+  const active = chapters.includes(name) ? name : 'home';
+  chapters.forEach(id => { document.getElementById(id).hidden = id !== active; });
+  document.querySelectorAll('.site-nav a').forEach(link => {
+    if (link.getAttribute('href') === `#${active}`) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  window.scrollTo({top: 0, behavior: 'instant'});
+}
+window.addEventListener('hashchange', showChapter);
+showChapter();
+
+document.querySelectorAll('.about-experience-actions button').forEach(button => {
+  const dialog = document.getElementById(button.getAttribute('aria-controls'));
+  button.addEventListener('click', () => dialog.showModal());
+  window.addEventListener('hashchange', () => { if (dialog.open) dialog.close(); });
+});
+
+document.querySelectorAll('.work-filters').forEach(filters => {
+  const cards = filters.parentElement.querySelectorAll('.work-card');
+  filters.addEventListener('click', event => {
+    const button = event.target.closest('button[data-filter]');
+    if (!button) return;
+    filters.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    const keys = button.dataset.filter.split(' ');
+    cards.forEach(card => { card.hidden = button.dataset.filter !== 'all' && !keys.includes(card.dataset.project); });
+  });
+});
+
 const projects = {
   schools: {
     kicker: 'Data journalism work · 2026',
     title: 'Schools Disappearing from the Map: Farewells and Migration amid Rural Primary School Closures',
+    summary: 'An interactive report on rural school closures, the journeys children make to class, and the families who move to stay close.',
     image: './assets/rural-schools.png',
     alt: 'Illustrated cover of the rural primary school closures project',
     meta: [['Role','Team leader · Editor · Writer · Graphic designer'],['Recognition','Excellence Award, Shanghai Regional Round, the 11th China Data Journalism Competition'],['Format','Interactive data journalism']],
     description: 'Drawing on more than two decades of changes in the number of rural primary schools in China, this data journalism project combines policy documents, public datasets, reported cases, and interview material. It examines how school closures and consolidations affect commuting, transport safety, families relocating to accompany their children, and the reuse of vacant school buildings. Interactive charts present the wider trend while acknowledging inconsistent statistical definitions, regional differences, and missing data.',
-    justifyDescription: true,
     website: 'https://shendigitalnews.framer.website',
     actions: [['Open interactive story ↗','https://shendigitalnews.framer.website']]
   },
   wanping: {
     kicker: 'In-depth reporting · 2025',
     title: 'No. 600, Wanping South Road: Estrangements and Struggles behind the “Wall”',
+    summary: 'A patient and a frontline social worker discuss employment, family relationships and social acceptance after a patient’s condition stabilises.',
     image: './assets/wanping.png', alt: 'Cover of the Wanping South Road report',
     meta: [['Role','Team leader · Editor · Reporter'],['Reporting','One patient living with mental illness and one social worker'],['Recognition','Award in Public-Interest Communication, The 5th Campus News Reporting Prizes (non-ranked category)']],
     description: 'The report begins with “No. 600 Wanping South Road”, an address often used jokingly in Shanghai as shorthand for mental illness. Through conversations with one person living with mental illness and one frontline social worker, it examines employment, family relationships, community life, and social acceptance after a patient’s condition has stabilised.',
-    justifyDescription: true,
     article: './assets/wanping-article.jpg',
     articleSize: [1279,41340],
     actions: []
@@ -29,10 +61,10 @@ const projects = {
   accessibility: {
     kicker: 'In-depth reporting · 2026',
     title: 'When “Accessibility” Goes Beyond Tactile Paving: How Can We See Each Other Eye to Eye?',
+    summary: 'An inclusive dance class offers a closer look at what it takes for disabled and non-disabled participants to dance on equal terms.',
     image: './assets/accessibility-cover.png', alt: 'Cover of the accessibility report',
     meta: [['Role','Reporter · Editor · Writer'],['Format','In-depth reporting']],
-    description: 'Using the disability-inclusive dance initiative Embodied Moment (此时舞身) as its entry point, the report observes how disabled and non-disabled participants share a dance class. It then asks whether the venue, access to information, and opportunities for expression are genuinely accessible. Revealing the distance that can remain between being present in the same room and participating on equal terms.',
-    justifyDescription: true,
+    description: 'Using the disability-inclusive dance initiative Embodied Moment (此时舞身) as its entry point, the report observes how disabled and non-disabled participants share a dance class. It then asks whether the venue, access to information, and opportunities for expression are genuinely accessible. The report shows the distance that can remain between being present in the same room and participating on equal terms.',
     article: './assets/accessibility-article.png',
     articleSize: [1290,35146],
     actions: []
@@ -40,10 +72,10 @@ const projects = {
   doxxing: {
     kicker: 'Convergence journalism · 2025',
     title: 'Who Doxxed Me?',
+    summary: 'An interactive report traces how personal data is collected, traded and circulated online.',
     image: './assets/doxxing-cover.png', alt: 'Who Doxxed Me? cover',
     meta: [['Role','Team leader · Editor · Writer'],['Format','Interactive web page and WeChat version']],
     description: 'The project examines “kaihe”—the Chinese online term for doxxing—alongside personal-data leaks and online abuse. It uses publicly reported cases, a map of the illicit information chain, official notices, published expert commentary, a risk profile, and an interactive quiz to explain how personal information is collected, traded, and circulated. Its interactive webpage and WeChat versions place readers in recognisable situations, helping them identify risks and find practical guidance.',
-    justifyDescription: true,
     article: './assets/doxxing-article.png',
     articleSize: [1290,21783],
     actions: []
@@ -51,25 +83,27 @@ const projects = {
   parking: {
     kicker: 'Television news program · 2025',
     title: 'Working Together to Address Disorderly Campus Parking',
+    summary: 'A campus news report on disorderly bicycle and e-bike parking, with follow-up coverage of the university’s new management measures.',
     image: './assets/parking-cover.png', alt: 'Campus parking report cover',
     meta: [['Role','Reporter · Video editor']],
     description: 'Haphazard parking of bicycles and e-bikes has long been among the top concerns of students and faculty at the East China University of Political Science and Law (ECUPL). The reporter interviewed campus security and logistics staff alongside cycling students and faculty, and checked parking rules and departmental responsibilities across locations and time slots. One month after those interviews, follow-up reporting found the university had in fact rolled out new management measures.',
-    justifyDescription: true,
     video: {player:'./media/parking/index.html'},
     actions: [['Open video ↗','./media/parking/index.html']]
   },
   dwell: {
     kicker: 'Documentary · 2026',
     title: 'Dwell',
+    summary: 'A short documentary follows three residents of a Shanghai co-living community through work, solitude and the routines they share.',
     image: './assets/dwell-poster.png', alt: 'Dwell documentary poster', poster: true,
     meta: [['Role','Director · Producer · Cinematographer · Editor'],['Format','Documentary']],
     description: 'This Chinese micro-documentary focuses on the Dweller co-living community in Shanghai, employing a blend of observational and participatory filmmaking. The film follows three young people at different stages of life—Zhou Shuai, Fufu, and Dagou—as it documents their urban lives and work, their interpersonal bonds and solitude, their construction of belonging, and their journey of self-discovery and spiritual anchoring amidst the noise of the city.',
-    video: {player:'./media/dwell/index.html'},
-    actions: [['Open film ↗','./media/dwell/index.html']]
+    video: {player:'https://www.youtube.com/embed/BCmiaGLpcCg?playsinline=1', requiresSiteReferrer: true},
+    actions: [['Watch on YouTube ↗','https://youtu.be/BCmiaGLpcCg']]
   },
   choice: {
     kicker: 'Narrative fiction microfilm · 2024',
     title: 'A Moment’s Choice',
+    summary: 'A student bonds with a stranger over photography. The short film follows how that connection turns into a scam.',
     image: './assets/moments-choice.jpeg', alt: 'A Moment’s Choice film poster', poster: true,
     meta: [['Role','Director · Producer · Cinematographer · Editor'],['Recognition','First Prize in the Video Category, The 2nd Qinglan Cup Campus New Media Competition on the Rule of Law; Selected for ECUPL’s Feiniao Exhibition.']],
     description: "Adapted from a real scam endured by one of the team members, the film traces a university student's slow entanglement with a stranger. They bond over photography; what starts as innocent conversation quietly evolves into an elaborate trap. The film looks unflinchingly at how trust operates—and how effortlessly it can be turned against us.",
@@ -79,6 +113,7 @@ const projects = {
   pause: {
     kicker: 'Micro-film advertisement · 2025',
     title: 'Hey, Press Pause',
+    summary: 'A short film for POP MART’s Nyota, told through three stories about finding a moment to pause under everyday pressure.',
     image: './assets/press-pause-remaster-20260929.jpg', alt: 'Hey, Press Pause cover',
     meta: [['Role','Director · Cinematographer · Editor'],['Format','Micro-film advertisement']],
     description: 'This short film is written for Nyota, an IP under Pop Mart. Three narrative threads mirror the weight of academia, career, and family. A childhood photograph, a cat, a celebrity, and a parallel universe—these delicate yet profound images together render Nyota an emotional pause. They allow the fragments of life long obscured by constant pressure to resurface, and gently remind us that amid the relentless torrent of daily existence, we all need to stop and rediscover ourselves.',
@@ -88,6 +123,7 @@ const projects = {
   shanghai: {
     kicker: 'AI short film · 2026',
     title: 'Shanghai, Inherited and Reimagined',
+    summary: 'A 65-second animation traces Shanghai’s history through the buildings Leo encounters on a journey across the city.',
     image: './assets/shanghai-ai.png', alt: 'Shanghai, Inherited and Reimagined poster', poster: true,
     meta: [['Role','Author']],
     description: "This 65-second vertical animation follows a young man named Leo as he travels through Shanghai's Yuyuan Garden, Shikumen neighborhoods, Saint John's University, the Bund, and Lujiazui. As scenes shift, architecture becomes the backbone of the narrative—linking the city's Jiangnan cultural roots, its modern history of cross-cultural encounter, and the creative energy of its contemporary urban landscape. Against the reductive international portrayal of Shanghai as merely a financial hub with a futuristic skyline, I choose architecture as the visual entry point for cultural expression, letting the spaces speak for themselves, free from extra layers of cultural translation.",
@@ -97,14 +133,56 @@ const projects = {
 };
 
 const projectDialog = document.querySelector('#project-dialog');
+const projectOverview = projectDialog.querySelector('.dialog-overview');
 const projectHero = document.querySelector('#dialog-hero');
 const projectMeta = document.querySelector('#dialog-meta');
+const projectDescription = projectOverview.querySelector('.dialog-description');
+const projectProse = projectDescription.querySelector('.dialog-prose');
 const projectActions = document.querySelector('#dialog-actions');
 const projectWork = document.querySelector('#dialog-work');
+const projectKeys = Object.keys(projects);
+let activeProjectKey = projectKeys[0];
 
-function addProjectFact(label, value, className = '') {
+function layoutProjectDescription() {
+  if (!projectDialog.open) return;
+  const cover = projectHero.getBoundingClientRect();
+  const facts = projectMeta.getBoundingClientRect();
+  const besideCover = 'description-beside-cover';
+  if (facts.left <= cover.right || facts.height >= cover.height) {
+    projectOverview.classList.remove(besideCover);
+    return;
+  }
+
+  // Measure the full text at its sidebar width, including its heading and spacing.
+  projectOverview.classList.add(besideCover);
+  projectOverview.classList.toggle(besideCover, projectDescription.getBoundingClientRect().bottom <= cover.bottom + 1);
+}
+
+const projectLayoutObserver = new ResizeObserver(layoutProjectDescription);
+for (const element of [projectDialog, projectHero, projectMeta]) projectLayoutObserver.observe(element);
+document.fonts.ready.then(layoutProjectDescription);
+
+document.querySelectorAll('.work-card').forEach(card => {
+  const { project: key } = card.dataset;
+  const project = projects[key];
+  const info = card.querySelector('.work-info');
+  const title = info.querySelector('strong');
+  title.id = `work-title-${key}`;
+  card.setAttribute('aria-labelledby', title.id);
+  card.setAttribute('aria-haspopup', 'dialog');
+
+  const role = document.createElement('span');
+  role.className = 'work-role';
+  role.textContent = project.meta.find(([label]) => label === 'Role')[1];
+  const summary = document.createElement('span');
+  summary.className = 'work-summary';
+  summary.textContent = project.summary;
+  info.append(role, summary);
+});
+
+function addProjectFact(label, value) {
   const row = document.createElement('div');
-  row.className = `dialog-fact ${className}`.trim();
+  row.className = 'dialog-fact';
   const dt = document.createElement('dt');
   const dd = document.createElement('dd');
   dt.textContent = label;
@@ -120,6 +198,8 @@ function stopProjectMedia() {
 function openProject(key) {
   const project = projects[key];
   if (!project) return;
+  activeProjectKey = key;
+  document.querySelector('#project-counter').textContent = `${String(projectKeys.indexOf(key) + 1).padStart(2, '0')} / ${String(projectKeys.length).padStart(2, '0')}`;
   stopProjectMedia();
   projectHero.classList.toggle('poster', !!project.poster);
   projectHero.replaceChildren();
@@ -137,7 +217,7 @@ function openProject(key) {
   for (const [label, value] of project.meta) {
     if (label !== 'Role' && !(label === 'Format' && value.toLowerCase() === workType.toLowerCase())) addProjectFact(label, value);
   }
-  addProjectFact('Project description', project.description, `dialog-fact-description${project.justifyDescription ? ' is-justified' : ''}`);
+  projectProse.textContent = project.description;
   projectActions.replaceChildren();
   for (const [label, href] of project.actions) {
     const a = document.createElement('a');
@@ -172,13 +252,17 @@ function openProject(key) {
     projectWork.append(frame);
   } else if (project.video) {
     previewTitle = 'Watch the film';
-    const frame = document.createElement('iframe');
-    frame.src = project.video.player;
-    frame.title = `${project.title} video player`;
-    frame.loading = 'lazy';
-    frame.allow = 'fullscreen; picture-in-picture';
-    frame.allowFullscreen = true;
-    projectWork.append(frame);
+    // A local file cannot send the site referrer required by the YouTube embed.
+    if (!project.video.requiresSiteReferrer || location.protocol !== 'file:') {
+      const frame = document.createElement('iframe');
+      frame.src = project.video.player;
+      frame.title = `${project.title} video player`;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.allow = 'encrypted-media; fullscreen; picture-in-picture';
+      frame.allowFullscreen = true;
+      projectWork.append(frame);
+    }
   } else if (project.still) {
     const image = document.createElement('img');
     image.src = project.still;
@@ -189,11 +273,156 @@ function openProject(key) {
   const previewHeading = document.querySelector('#dialog-preview-title');
   previewHeading.textContent = project.website ? '' : previewTitle;
   previewHeading.hidden = !!project.website;
-  projectDialog.showModal();
+  if (!projectDialog.open) projectDialog.showModal();
+  layoutProjectDescription();
   projectDialog.scrollTop = 0;
 }
 
+const reelTrack = document.querySelector('.reel-track');
+const reelToggle = document.querySelector('.reel-toggle');
+const reelScreen = document.querySelector('.opening-reel');
+const reelStatic = reelScreen.querySelector('.reel-static');
+const reelStaticContext = reelStatic.getContext('2d');
+const reelNoise = reelStaticContext?.createImageData(reelStatic.width, reelStatic.height);
+const reelSlides = [...reelTrack.children];
+const reelReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let queuedReelIndex = 0;
+let reelTransitionFrame;
+let reelPaused = reelReducedMotion.matches;
+function syncReelToggle() {
+  const label = reelPaused ? 'Resume preview' : 'Pause preview';
+  reelToggle.setAttribute('aria-pressed', String(reelPaused));
+  reelToggle.setAttribute('aria-label', label);
+  reelToggle.title = label;
+}
+function renderReelSlide(index) {
+  window.cancelAnimationFrame(reelTransitionFrame);
+  reelSlides.forEach((slide, i) => { slide.hidden = i !== index; });
+  const current = projects[reelSlides[index].dataset.project];
+  document.querySelector('#channel-number').textContent = `CH ${String(index + 1).padStart(2, '0')} / ${String(reelSlides.length).padStart(2, '0')}`;
+  document.querySelector('#channel-title').textContent = current.title;
+  reelScreen.classList.remove('is-changing');
+}
+function paintReelStatic(progress) {
+  const { width, height, data } = reelNoise;
+  // The interference band rolls through the visible area of the CRT.
+  const bandCenter = height * (.12 + .76 * progress);
+  let offset = 0;
+  for (let row = 0; row < height; row++) {
+    const band = Math.max(0, 1 - Math.abs(row - bandCenter) / 12);
+    const base = 104 + (Math.random() - .5) * 28 + band * 38;
+    const spread = 126 + band * 28;
+    for (let column = 0; column < width; column++) {
+      const shade = base + (Math.random() - .5) * spread;
+      data[offset++] = shade;
+      data[offset++] = shade;
+      data[offset++] = shade;
+      data[offset++] = 255;
+    }
+  }
+  reelStaticContext.putImageData(reelNoise, 0, 0);
+}
+function showReelSlide(index) {
+  queuedReelIndex = (index + reelSlides.length) % reelSlides.length;
+  window.cancelAnimationFrame(reelTransitionFrame);
+  if (reelReducedMotion.matches || !reelNoise) {
+    renderReelSlide(queuedReelIndex);
+    return;
+  }
+
+  const duration = 240;
+  const framePeriod = 1000 / 24;
+  const start = performance.now();
+  let lastPaint = start;
+  function animateStatic(now) {
+    const elapsed = now - start;
+    if (elapsed >= duration) {
+      renderReelSlide(queuedReelIndex);
+      return;
+    }
+    if (now - lastPaint >= framePeriod) {
+      paintReelStatic(elapsed / duration);
+      lastPaint = now - (now - lastPaint) % framePeriod;
+    }
+    reelTransitionFrame = window.requestAnimationFrame(animateStatic);
+  }
+
+  paintReelStatic(0);
+  reelScreen.classList.add('is-changing');
+  reelTransitionFrame = window.requestAnimationFrame(animateStatic);
+}
+renderReelSlide(0);
+syncReelToggle();
+reelToggle.addEventListener('click', () => {
+  reelPaused = !reelPaused;
+  syncReelToggle();
+});
+reelReducedMotion.addEventListener('change', ({ matches }) => {
+  if (!matches) return;
+  reelPaused = true;
+  syncReelToggle();
+  renderReelSlide(queuedReelIndex);
+});
+document.querySelector('.reel-prev').addEventListener('click', () => showReelSlide(queuedReelIndex - 1));
+document.querySelector('.reel-next').addEventListener('click', () => showReelSlide(queuedReelIndex + 1));
+
+async function playTvIntro() {
+  const intro = document.querySelector('#site-intro');
+  const destination = reelScreen.closest('.tv-visual');
+  if (reelReducedMotion.matches || document.getElementById('home').hidden || document.hidden || !intro.showModal || !destination.animate) return;
+
+  const introTv = intro.querySelector('.intro-tv');
+  const cover = reelSlides[0].querySelector('img').cloneNode();
+  intro.querySelector('.intro-cover').append(cover);
+  const listeners = new AbortController();
+  const options = { signal: listeners.signal };
+  const close = () => { if (intro.open) intro.close(); };
+  const delay = milliseconds => new Promise(resolve => window.setTimeout(resolve, milliseconds));
+  let movement;
+
+  intro.showModal();
+  try {
+    window.addEventListener('hashchange', close, options);
+    window.addEventListener('pagehide', close, options);
+    reelReducedMotion.addEventListener('change', close, options);
+    window.addEventListener('resize', () => { if (movement) close(); }, options);
+    const closed = new Promise(resolve => intro.addEventListener('close', resolve, options));
+    const loaded = Promise.race([
+      Promise.allSettled([introTv.querySelector('.tv-body').decode(), cover.decode(), delay(1050)]),
+      delay(1850)
+    ]);
+    const settled = loaded.then(async () => {
+      if (!intro.open) return;
+      const start = introTv.getBoundingClientRect();
+      const end = destination.getBoundingClientRect();
+      if (!end.width || !start.width) return;
+
+      if (cover.naturalWidth) intro.classList.add('is-tuned');
+      intro.classList.add('is-settling');
+      movement = introTv.animate([
+        { transform: 'none' },
+        { transform: `translate(${end.left - start.left}px, ${end.top - start.top}px) scale(${end.width / start.width})` }
+      ], { duration: 820, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' });
+      await movement.finished;
+    });
+    await Promise.race([closed, settled]);
+  } finally {
+    close();
+    movement?.cancel();
+    listeners.abort();
+  }
+}
+
+function startReelTimer() {
+  window.setInterval(() => {
+    if (!reelPaused && !document.hidden && !document.getElementById('home').hidden && !projectDialog.open && !reelScreen.matches(':hover') && !reelScreen.matches(':focus-within')) showReelSlide(queuedReelIndex + 1);
+  }, 2800);
+}
+playTvIntro().then(startReelTimer, startReelTimer);
+
 document.querySelectorAll('.project-trigger').forEach(button => button.addEventListener('click', () => openProject(button.dataset.project)));
+document.querySelector('#project-prev').addEventListener('click', () => openProject(projectKeys[(projectKeys.indexOf(activeProjectKey) + projectKeys.length - 1) % projectKeys.length]));
+document.querySelector('#project-next').addEventListener('click', () => openProject(projectKeys[(projectKeys.indexOf(activeProjectKey) + 1) % projectKeys.length]));
 projectDialog.querySelector('.dialog-close').addEventListener('click', () => projectDialog.close());
 function isProjectBackdropPoint(event) {
   if (event.target !== projectDialog) return false;
@@ -252,8 +481,8 @@ const internshipPrograms = [
   [4, '天弘基金走进产业', 'https://weixin.qq.com/sph/AHfnU8sLHZ']
 ];
 const gallery = {
-  internship: internshipPrograms.map(([number,title,href],i) => ({src:`./assets/gallery/internship-${String(number).padStart(2,'0')}.jpg`, title, href, alt:title, caption:`Internship programs · ${String(i+1).padStart(2,'0')}/08`})),
-  photo: photographyOrder.map((number,i) => ({...photography[number-1], caption:`Recent photography · ${String(i+1).padStart(2,'0')}/${photography.length}`}))
+  internship: internshipPrograms.map(([number,title,href],i) => ({src:`./assets/gallery/internship-${String(number).padStart(2,'0')}.jpg`, title, href, alt:title, caption:`Internship Project · ${String(i+1).padStart(2,'0')}/08`})),
+  photo: photographyOrder.map((number,i) => ({...photography[number-1], caption:`Photographic Works · ${String(i+1).padStart(2,'0')}/${photography.length}`}))
 };
 const galleryDialog = document.querySelector('#gallery-dialog');
 const galleryZoom = galleryDialog.querySelector('.gallery-zoom');
@@ -316,7 +545,6 @@ for (const [kind, containerId] of [['internship','internship-grid'],['photo','ph
     if (item.width && item.height) {
       image.width = item.width;
       image.height = item.height;
-      if (kind === 'photo') tile.style.setProperty('--photo-ratio', item.width / item.height);
     }
     tile.append(image);
     container.append(tile);
@@ -326,6 +554,7 @@ for (const [kind, containerId] of [['internship','internship-grid'],['photo','ph
 // Justified rows preserve the left-to-right sequence and every image's full frame.
 const photoGrid = document.querySelector('#photo-grid');
 const photoTiles = [...photoGrid.children];
+const photoRatios = gallery.photo.map(({ width, height }) => width / height);
 let photoLayoutWidth = 0;
 let photoLayoutGap = -1;
 function layoutPhotography() {
@@ -334,27 +563,37 @@ function layoutPhotography() {
   if (!width || (Math.abs(width - photoLayoutWidth) < .5 && gap === photoLayoutGap)) return;
   photoLayoutWidth = width;
   photoLayoutGap = gap;
-  const targetHeight = width <= 450 ? 220 : width <= 850 ? 300 : 340;
+  const { paddingLeft, paddingRight, paddingTop, paddingBottom } = getComputedStyle(photoTiles[0]);
+  const frameWidth = parseFloat(paddingLeft) + parseFloat(paddingRight);
+  const frameHeight = parseFloat(paddingTop) + parseFloat(paddingBottom);
+  const targetImageHeight = (width <= 450 ? 220 : width <= 850 ? 300 : 340) - frameHeight;
   const rows = [];
+  const fitHeight = (count, ratio) => (width - gap * (count - 1) - frameWidth * count) / ratio;
   let index = 0;
   while (index < photoTiles.length) {
     const start = index;
     let ratio = 0;
     while (index < photoTiles.length) {
-      const item = gallery.photo[index];
-      const nextRatio = ratio + item.width / item.height;
+      const nextRatio = ratio + photoRatios[index];
       const rowCount = index - start;
-      const nextHeight = (width - gap * rowCount) / nextRatio;
-      const currentHeight = (width - gap * Math.max(0, rowCount - 1)) / ratio;
-      if (ratio && nextHeight <= targetHeight && Math.abs(currentHeight - targetHeight) < Math.abs(nextHeight - targetHeight)) break;
+      const nextHeight = fitHeight(rowCount + 1, nextRatio);
+      if (rowCount && nextHeight <= targetImageHeight) {
+        const currentHeight = fitHeight(rowCount, ratio);
+        if (Math.abs(currentHeight - targetImageHeight) < Math.abs(nextHeight - targetImageHeight)) break;
+      }
       ratio = nextRatio;
       index++;
-      if (nextHeight <= targetHeight) break;
+      if (nextHeight <= targetImageHeight) break;
     }
     const row = document.createElement('div');
     row.className = 'photo-row';
-    row.style.height = `${(width - gap * (index - start - 1)) / ratio}px`;
-    row.append(...photoTiles.slice(start, index));
+    const imageHeight = fitHeight(index - start, ratio);
+    row.style.height = `${imageHeight + frameHeight}px`;
+    for (let i = start; i < index; i++) {
+      photoTiles[i].style.flexBasis = `${imageHeight * photoRatios[i] + frameWidth}px`;
+      if (start === 0) photoTiles[i].querySelector('img').loading = 'eager';
+      row.append(photoTiles[i]);
+    }
     rows.push(row);
   }
   photoGrid.replaceChildren(...rows);

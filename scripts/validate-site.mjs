@@ -47,8 +47,8 @@ if (Object.keys(projects).length !== 9) failures.push('Expected nine projects.')
 if (projects.pause.video?.player !== './media/pause/index.html?v=20260929-2' || projects.pause.still) failures.push('Hey, Press Pause must use its remastered local film player.');
 const pauseCover = './assets/press-pause-poster-20260929.jpg';
 const pausePlayer = readFileSync(resolve(site, 'media/pause/index.html'), 'utf8');
-const pauseCovers = [...index.matchAll(/data-project="pause"[^>]*>[\s\S]*?<img src="([^"]+)"/g)];
-if (pauseCovers.length !== 2 || pauseCovers.some(match => match[1] !== pauseCover)) failures.push('Only the two main-page Pause covers must use the latest supplied portrait poster.');
+const pauseCovers = [...index.matchAll(/class="work-card[^" ]*(?: [^" ]+)*"[^>]*data-project="pause"[^>]*>[\s\S]*?<img src="([^"]+)"/g)];
+if (pauseCovers.length !== 1 || pauseCovers[0][1] !== pauseCover) failures.push('The Pause work card must use the supplied portrait poster.');
 if (projects.pause.image !== './assets/press-pause-remaster-20260929.jpg' || projects.pause.poster || !pausePlayer.includes('poster="../../assets/press-pause-remaster-20260929.jpg"')) failures.push('Pause detail and player must retain the supplied landscape cover.');
 if (!pausePlayer.includes("const source = './hls-remaster-20260929/index.m3u8';")) failures.push('Pause player must load the remastered video playlist.');
 const pausePlaylist = readFileSync(resolve(site, 'media/pause/hls-remaster-20260929/index.m3u8'), 'utf8');

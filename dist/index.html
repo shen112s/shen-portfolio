@@ -4,46 +4,123 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Journalism, documentary, creative media and photography by Jiajun Shen.">
-  <meta name="theme-color" content="#f4f0e8">
+  <meta name="theme-color" content="#f5eee2">
   <title>Jiajun Shen — Portfolio</title>
-  <link rel="stylesheet" href="./styles.css?v=20260928-2">
-  <link rel="stylesheet" href="./editorial.css?v=20260929-2">
-  <script src="./script.js?v=20261008-1" defer></script>
+  <link rel="stylesheet" href="./styles.css?v=20261120-6">
+  <link rel="stylesheet" href="./editorial.css?v=20261120-16">
+  <link rel="stylesheet" href="./cinema.css?v=20261120-17">
+  <link rel="stylesheet" href="./notebook.css?v=20261120-39">
+  <script src="./script.js?v=20261120-26" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#journalism">Skip to work</a>
   <header class="site-header">
     <a class="wordmark" href="#home" aria-label="Shen Jiajun Portfolio, back to top">SHEN JIAJUN<br> PORTFOLIO</a>
     <nav class="site-nav" aria-label="Primary navigation">
-      <a href="#journalism">Journalism</a><a href="#creative">Creative media</a><a href="#others">Others</a>
+      <a href="#about"><span>About Me</span></a>
+      <a href="#journalism"><span>News Work</span></a>
+      <a href="#creative"><span>Video Creation</span></a>
+      <a href="#photography"><span>Photographic Works</span></a>
+      <a href="#internship"><span>Internship Project</span></a>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <h1 id="hero-title">Portfolio</h1>
-        <p class="hero-deck">BY SHEN JIAJUN</p>
-        <div class="hero-bottom"><a href="#journalism" class="circle-link" aria-label="Explore the work">↓</a></div>
+        <h1 id="hero-title">
+          <span class="hero-title-main">PORTFOLIO</span>
+          <span class="hero-title-of">of</span>
+          <span class="hero-title-name">Shen Jiajun</span>
+        </h1>
+        <nav class="hero-chapters" aria-label="Portfolio sections">
+          <a href="#about">About Me</a>
+          <a href="#journalism">News Work</a>
+          <a href="#creative">Video Creation</a>
+          <a href="#photography">Photographic Works</a>
+          <a href="#internship">Internship Project</a>
+        </nav>
       </div>
-      <div class="hero-art" aria-label="Covers of all nine projects">
-        <div class="hero-gallery">
-          <button class="hero-cover project-trigger" type="button" data-project="schools" aria-label="Open Schools Disappearing from the Map"><img src="./assets/rural-schools.png" alt="Schools Disappearing from the Map cover"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="wanping" aria-label="Open No. 600, Wanping South Road"><img src="./assets/wanping.png" alt="No. 600, Wanping South Road cover"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="accessibility" aria-label="Open the accessibility report"><img src="./assets/accessibility-cover.png" alt="Accessibility report cover"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="doxxing" aria-label="Open Who Doxxed Me?"><img src="./assets/doxxing-cover.png" alt="Who Doxxed Me? cover"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="parking" aria-label="Open the campus parking report"><img src="./assets/parking-cover.png" alt="Campus parking report cover"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="dwell" aria-label="Open Dwell"><img src="./assets/dwell-poster.png" alt="Dwell poster"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="choice" aria-label="Open A Moment’s Choice"><img src="./assets/moments-choice.jpeg" alt="A Moment’s Choice poster"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="pause" aria-label="Open Hey, Press Pause"><img src="./assets/press-pause-poster-20260929.jpg" alt="Hey, Press Pause cover"></button>
-          <button class="hero-cover project-trigger" type="button" data-project="shanghai" aria-label="Open Shanghai, Inherited and Reimagined"><img src="./assets/shanghai-ai.png" alt="Shanghai, Inherited and Reimagined poster"></button>
+      <div class="tv-set">
+        <div class="tv-stage">
+          <div class="tv-visual">
+            <div class="opening-reel" role="group" aria-label="Preview selected works on the television">
+              <div class="reel-track">
+                <button class="project-trigger" data-project="schools" type="button" aria-label="Open Schools Disappearing from the Map"><img src="./assets/tv-posters/schools.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="wanping" type="button" aria-label="Open No. 600, Wanping South Road" hidden><img src="./assets/tv-posters/wanping.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="accessibility" type="button" aria-label="Open the accessibility report" hidden><img src="./assets/tv-posters/accessibility.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="doxxing" type="button" aria-label="Open Who Doxxed Me?" hidden><img src="./assets/tv-posters/doxxing.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="parking" type="button" aria-label="Open the campus parking report" hidden><img src="./assets/tv-posters/parking.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="dwell" type="button" aria-label="Open Dwell" hidden><img src="./assets/tv-posters/dwell.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="choice" type="button" aria-label="Open A Moment’s Choice" hidden><img src="./assets/tv-posters/choice.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="pause" type="button" aria-label="Open Hey, Press Pause" hidden><img src="./assets/tv-posters/pause.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+                <button class="project-trigger" data-project="shanghai" type="button" aria-label="Open Shanghai, Inherited and Reimagined" hidden><img src="./assets/tv-posters/shanghai.webp?v=20261120-2" width="1200" height="880" alt=""></button>
+              </div>
+              <canvas class="reel-static" width="336" height="224" aria-hidden="true"></canvas>
+            </div>
+            <img class="tv-body" src="./assets/sketch-tv-20261119.png" width="1536" height="1024" alt="" aria-hidden="true">
+          </div>
+        </div>
+        <div class="tv-controls">
+          <p class="tv-caption">
+            <span id="channel-number">CH 01 / 09</span>
+            <span id="channel-title">Schools Disappearing from the Map</span>
+          </p>
+          <div class="tv-buttons" role="group" aria-label="Television controls">
+            <button class="reel-prev" type="button" aria-label="Previous cover" title="Previous cover">←</button>
+            <button class="reel-toggle" type="button" aria-label="Pause preview" aria-pressed="false" title="Pause preview"></button>
+            <button class="reel-next" type="button" aria-label="Next cover" title="Next cover">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section" id="about" aria-labelledby="about-title" hidden>
+      <div class="section-shell about-spread">
+        <div class="about-bio">
+          <div class="about-identity">
+            <div class="about-nameplate">
+              <h2 class="about-name" id="about-title">Shen Jiajun <span lang="zh-Hans"><img src="./assets/shen-jiajun-name.svg" alt="沈佳俊" width="84" height="30"></span></h2>
+            </div>
+            <p class="about-education">
+              Journalism undergraduate at East China University of Political Science and Law
+              <span>Shanghai, China</span>
+            </p>
+          </div>
+          <p class="about-intro">In my journalistic practice, I focus on how social issues in urban and rural communities shape daily life. When something happens, I want to understand what those involved have experienced, while thinking carefully about how I tell their story. This question runs through my reporting, documentaries and photography, as well as the scenes I construct in narrative film and generative media.</p>
+          <div class="about-skills">
+            <div class="about-skills-heading">
+              <h3>What I do</h3>
+              <div class="about-experience-actions">
+                <button class="about-experience-button" type="button" aria-haspopup="dialog" aria-controls="about-experience">Work experience <span aria-hidden="true">↗</span></button>
+                <button class="about-experience-button" type="button" aria-haspopup="dialog" aria-controls="campus-experience">Campus experience <span aria-hidden="true">↗</span></button>
+              </div>
+            </div>
+            <ul class="about-practice">
+              <li>Interviewing and reporting</li>
+              <li>Data and interactive journalism</li>
+              <li>Documentary filmmaking</li>
+              <li>Cinematography and editing</li>
+            </ul>
+          </div>
+        </div>
+        <div class="about-side">
+          <img class="about-portrait" src="./assets/shen-jiajun-about.png" width="876" height="1180" alt="Portrait of Shen Jiajun" decoding="async" loading="lazy">
+          <div class="about-contact">
+            <h3>Email</h3>
+            <a href="mailto:shenjiajun0526@163.com">shenjiajun0526@163.com <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="work-section journalism-section" id="journalism" aria-labelledby="journalism-title">
       <div class="section-shell">
-        <div class="section-heading"><h2 id="journalism-title">Journalism<br>projects</h2></div>
+        <div class="section-heading"><h2 id="journalism-title">News Work</h2><img class="chapter-art" src="./assets/sketch-microphone-20261119.png" alt="" aria-hidden="true"></div>
+        <div class="work-filters" role="group" aria-label="Filter news work">
+          <button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="schools" aria-pressed="false">Data journalism</button><button type="button" data-filter="wanping accessibility" aria-pressed="false">In-depth reporting</button><button type="button" data-filter="doxxing" aria-pressed="false">Convergence journalism</button><button type="button" data-filter="parking" aria-pressed="false">Television news</button>
+        </div>
+        <div class="project-sheet">
         <div class="work-grid journalism-grid">
           <button class="work-card work-card-lead project-trigger" type="button" data-project="schools"><span class="work-image"><img src="./assets/rural-schools.png" alt="Schools Disappearing from the Map cover" loading="lazy"></span><span class="work-info"><span class="work-no">Data journalism / 2026</span><strong class="work-title-long">Schools Disappearing from the Map: Farewells and Migration amid Rural Primary School Closures</strong><span class="work-arrow">↗</span></span></button>
           <button class="work-card project-trigger" type="button" data-project="wanping"><span class="work-image"><img src="./assets/wanping.png" alt="Wanping South Road report cover" loading="lazy"></span><span class="work-info"><span class="work-no">In-depth reporting / 2025</span><strong class="work-title-long">No. 600, Wanping South Road: Estrangements and Struggles behind the “Wall”</strong><span class="work-arrow">↗</span></span></button>
@@ -51,47 +128,161 @@
           <button class="work-card project-trigger" type="button" data-project="doxxing"><span class="work-image"><img src="./assets/doxxing-cover.png" alt="Who Doxxed Me? cover" loading="lazy"></span><span class="work-info"><span class="work-no">Convergence journalism / 2025</span><strong>Who Doxxed Me?</strong><span class="work-arrow">↗</span></span></button>
           <button class="work-card project-trigger" type="button" data-project="parking"><span class="work-image"><img src="./assets/parking-cover.png" alt="Campus parking news report cover" loading="lazy"></span><span class="work-info"><span class="work-no">Television news / 2025</span><strong>Working Together to Address Disorderly Campus Parking</strong><span class="work-arrow">↗</span></span></button>
         </div>
+        </div>
       </div>
     </section>
 
     <section class="work-section creative-section" id="creative" aria-labelledby="creative-title">
       <div class="section-shell">
-        <div class="section-heading"><h2 id="creative-title">Creative media<br>projects</h2></div>
+        <div class="section-heading"><h2 id="creative-title">Video Creation</h2><img class="chapter-art" src="./assets/sketch-clapper-20261119.png" alt="" aria-hidden="true"></div>
+        <div class="work-filters" role="group" aria-label="Filter video creation">
+          <button type="button" data-filter="all" aria-pressed="true">All</button><button type="button" data-filter="dwell" aria-pressed="false">Documentary</button><button type="button" data-filter="choice" aria-pressed="false">Narrative fiction</button><button type="button" data-filter="pause" aria-pressed="false">Micro-film advertisement</button><button type="button" data-filter="shanghai" aria-pressed="false">AI short film</button>
+        </div>
+        <div class="project-sheet">
         <div class="work-grid creative-grid">
           <button class="work-card project-trigger" type="button" data-project="dwell"><span class="work-image portrait-cover"><img src="./assets/dwell-poster.png" alt="Dwell documentary poster" loading="lazy"></span><span class="work-info"><span class="work-no">Documentary / 2026</span><strong>Dwell</strong><span class="work-arrow">↗</span></span></button>
           <button class="work-card project-trigger" type="button" data-project="choice"><span class="work-image portrait-cover"><img src="./assets/moments-choice.jpeg" alt="A Moment’s Choice poster" loading="lazy"></span><span class="work-info"><span class="work-no">Narrative fiction / 2024</span><strong>A Moment’s Choice</strong><span class="work-arrow">↗</span></span></button>
           <button class="work-card project-trigger" type="button" data-project="pause"><span class="work-image portrait-cover"><img src="./assets/press-pause-poster-20260929.jpg" alt="Hey, Press Pause cover" loading="lazy"></span><span class="work-info"><span class="work-no">Micro-film advertisement / 2025</span><strong>Hey, Press Pause</strong><span class="work-arrow">↗</span></span></button>
           <button class="work-card project-trigger" type="button" data-project="shanghai"><span class="work-image portrait-cover"><img src="./assets/shanghai-ai.png" alt="Shanghai, Inherited and Reimagined poster" loading="lazy"></span><span class="work-info"><span class="work-no">AI short film / 2026</span><strong>Shanghai, Inherited and Reimagined</strong><span class="work-arrow">↗</span></span></button>
         </div>
+        </div>
       </div>
     </section>
 
-    <section class="others-section" id="others" aria-labelledby="others-title">
+    <section class="others-section" id="photography" aria-labelledby="photography-title">
       <div class="section-shell">
-        <div class="section-heading"><h2 id="others-title">Others</h2></div>
+        <div class="section-heading"><h2 id="photography-title">Photographic Works</h2><img class="chapter-art" src="./assets/sketch-camera-20261119.png" alt="" aria-hidden="true"></div>
         <div class="archive-sheet">
-          <div class="archive-heading archive-heading-internship"><h3>Internship programs</h3><p>Click an image to view the work ↗</p></div>
-          <div class="internship-grid" id="internship-grid" role="region" aria-label="Internship work carousel" tabindex="0"></div>
-          <div class="archive-heading archive-heading-photos"><h3>Recent photography</h3></div>
           <div class="photo-grid" id="photo-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="others-section" id="internship" aria-labelledby="internship-title">
+      <div class="section-shell">
+        <div class="section-heading"><h2 id="internship-title">Internship Project</h2></div>
+        <div class="archive-sheet">
+          <p class="archive-hint">Click an image to view the work ↗</p>
+          <div class="internship-grid" id="internship-grid" role="region" aria-label="Internship project carousel" tabindex="0"></div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer"><a href="#home">Back to top ↑</a></footer>
+  <dialog class="about-experience-dialog" id="about-experience" aria-labelledby="experience-title">
+    <div class="experience-topbar">
+      <h2 id="experience-title">Work experience</h2>
+      <form method="dialog">
+        <button class="about-experience-button" aria-label="Close work experience" autofocus>Close <span aria-hidden="true">×</span></button>
+      </form>
+    </div>
+    <ol class="experience-list">
+      <li>
+        <div class="experience-entry">
+          <h3>Bilibili</h3>
+          <p class="experience-dates">Jul 2026 – Present</p>
+        </div>
+        <p class="experience-role">Digital Marketing Operations Intern · Classroom Business Department</p>
+        <ul class="experience-details">
+          <li>Planned and edited short promotional videos for courses and coordinated advertising materials with the course operations, design, sales and production teams.</li>
+          <li>Set up and monitored in-platform ad campaigns, including audience targeting, budgets, bids and schedules. Tracked impressions, click-through rates, conversions, acquisition costs and return on investment to support campaign adjustments.</li>
+          <li>Built an AI-assisted advertising workflow with Codex and WorkBuddy, along with an internal tool for submitting content to Related Recommendations. The team adopted both tools, reducing repetitive campaign setup and manual material checks and saving an estimated 3–5 hours of manual work per week.</li>
+        </ul>
+      </li>
+      <li>
+        <div class="experience-entry">
+          <h3>The Paper</h3>
+          <p class="experience-dates">Jan 2026 – May 2026</p>
+        </div>
+        <p class="experience-role">Editorial Intern · In-depth Reporting and Live Streaming Center</p>
+        <ul class="experience-details">
+          <li>Helped develop story ideas, research topics, conduct interviews, film and organise footage for in-depth reports, interview programmes and documentary-style videos.</li>
+          <li>Selected and restructured footage for interviews and short documentaries based on the subject, narrative and editorial requirements.</li>
+          <li>Contributed to interviews and profiles involving Deng Yaping, Xu Jilin, Ouyang Fenqiang and Ding Junhui. Edited clips, helped publish them on WeChat Channels and Bilibili, and tracked their performance.</li>
+        </ul>
+      </li>
+      <li>
+        <div class="experience-entry">
+          <h3>Pear Video</h3>
+          <p class="experience-dates">Jul 2025 – Nov 2025</p>
+        </div>
+        <p class="experience-role">Assistant Director Intern · Central Planning Department</p>
+        <ul class="experience-details">
+          <li>Helped produce branded videos from concept development and pre-interviews through scriptwriting, on-set work and post-production coordination.</li>
+          <li>Supported pre-interviews, coordination with content creators and the client, script development and production follow-up for Tianhong Asset Management’s AI-industry project.</li>
+          <li>Contributed research, pre-interviews and script preparation for the CoCo × Spring Bud Programme public-interest project and Bantianyao’s brand stories.</li>
+          <li>Assisted with advertising content settings for trending keywords and tags on Weibo.</li>
+        </ul>
+      </li>
+    </ol>
+  </dialog>
+
+  <dialog class="about-experience-dialog" id="campus-experience" aria-labelledby="campus-experience-title">
+    <div class="experience-topbar">
+      <h2 id="campus-experience-title">Campus experience</h2>
+      <form method="dialog">
+        <button class="about-experience-button" aria-label="Close campus experience" autofocus>Close <span aria-hidden="true">×</span></button>
+      </form>
+    </div>
+    <ol class="experience-list">
+      <li>
+        <div class="experience-entry">
+          <h3>ECUPL New Vision Media</h3>
+          <p class="experience-dates">Sep 2025 – Sep 2026</p>
+        </div>
+        <p class="experience-role">President</p>
+        <ul class="experience-details">
+          <li>Oversaw content production and daily operations across five departments, organised editorial meetings, assigned responsibilities and coordinated faculty and external resources.</li>
+          <li>Managed cross-departmental projects and contributed to feature reporting and profiles. During my term, the team received the Outstanding Campus Media Award at the 5th Campus News Reporting Prizes, and selected works earned provincial- and national-level recognition.</li>
+        </ul>
+      </li>
+      <li>
+        <div class="experience-entry">
+          <h3>ECUPL Youth Converged Media Center</h3>
+          <p class="experience-dates">Sep 2023 – Jun 2025</p>
+        </div>
+        <p class="experience-role">Member · Photography and Short Video Teams</p>
+        <ul class="experience-details">
+          <li>Helped plan, shoot and edit campus photographs and short videos for Douyin, WeChat Channels and Bilibili.</li>
+          <li>Contributed to campus news and promotional videos.</li>
+        </ul>
+      </li>
+    </ol>
+  </dialog>
+
+  <dialog class="site-intro" id="site-intro" aria-label="Portfolio opening animation">
+    <div class="intro-paper"></div>
+    <div class="intro-tv tv-visual" aria-hidden="true">
+      <div class="intro-screen">
+        <div class="intro-cover"></div>
+        <div class="intro-readout">
+          <span>Loading</span>
+          <span class="intro-meter"></span>
+        </div>
+      </div>
+      <img class="tv-body" src="./assets/sketch-tv-20261119.png" width="1536" height="1024" alt="">
+    </div>
+    <form method="dialog"><button class="intro-skip" autofocus>Skip intro <span aria-hidden="true">→</span></button></form>
+  </dialog>
 
   <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-title">
     <div class="dialog-frame">
       <div class="dialog-topbar">
+        <div class="project-pagination" role="group" aria-label="Browse projects"><button type="button" id="project-prev" aria-label="Previous project">← Previous</button><span id="project-counter"></span><button type="button" id="project-next" aria-label="Next project">Next →</button></div>
         <button class="dialog-close" type="button" aria-label="Close project and return to works">Back to works <span aria-hidden="true">×</span></button>
       </div>
       <div class="dialog-content">
         <h2 id="dialog-title"></h2>
         <div class="dialog-overview">
           <figure class="dialog-hero" id="dialog-hero"></figure>
-          <dl class="dialog-meta" id="dialog-meta"></dl>
+          <div class="dialog-information">
+            <dl class="dialog-meta" id="dialog-meta"></dl>
+            <section class="dialog-description" aria-labelledby="description-title">
+              <h3 id="description-title">Project description</h3>
+              <p class="dialog-prose"></p>
+            </section>
+          </div>
         </div>
         <section class="dialog-preview" aria-label="Project work">
           <div class="dialog-preview-heading">
