@@ -5,10 +5,17 @@ new ResizeObserver(syncHeaderHeight).observe(siteHeader);
 
 // Each chapter has its own address while retaining the simple static-site setup.
 const chapters = ['home', 'about', 'journalism', 'creative', 'photography', 'internship'];
+function loadChapterImages(chapter) {
+  for (const image of chapter.querySelectorAll('img[data-chapter-src]')) {
+    image.src = image.dataset.chapterSrc;
+    delete image.dataset.chapterSrc;
+  }
+}
 function showChapter() {
   const name = location.hash === '#others' ? 'internship' : location.hash.slice(1);
   const active = chapters.includes(name) ? name : 'home';
   chapters.forEach(id => { document.getElementById(id).hidden = id !== active; });
+  loadChapterImages(document.getElementById(active));
   document.querySelectorAll('.site-nav a').forEach(link => {
     if (link.getAttribute('href') === `#${active}`) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -285,9 +292,11 @@ const reelStatic = reelScreen.querySelector('.reel-static');
 const reelStaticContext = reelStatic.getContext('2d');
 const reelNoise = reelStaticContext?.createImageData(reelStatic.width, reelStatic.height);
 const reelSlides = [...reelTrack.children];
+const homeChapter = document.getElementById('home');
 const reelReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let queuedReelIndex = 0;
 let reelTransitionFrame;
+let reelImagePending;
 let reelPaused = reelReducedMotion.matches;
 function syncReelToggle() {
   const label = reelPaused ? 'Resume preview' : 'Pause preview';
@@ -322,11 +331,38 @@ function paintReelStatic(progress) {
   }
   reelStaticContext.putImageData(reelNoise, 0, 0);
 }
-function showReelSlide(index) {
-  queuedReelIndex = (index + reelSlides.length) % reelSlides.length;
+function requestReelImage(index, priority) {
+  const image = reelSlides[index].querySelector('img');
+  image.fetchPriority = priority;
+  if (image.dataset.src) {
+    image.src = image.dataset.src;
+    delete image.dataset.src;
+  }
+  return image;
+}
+function preloadNextReelSlide(index) {
+  if (!reelPaused && !homeChapter.hidden && !document.hidden) {
+    requestReelImage((index + 1) % reelSlides.length, 'low');
+  }
+}
+async function showReelSlide(index) {
+  const target = (index + reelSlides.length) % reelSlides.length;
+  queuedReelIndex = target;
   window.cancelAnimationFrame(reelTransitionFrame);
+  reelScreen.classList.remove('is-changing');
+  const pending = requestReelImage(target, 'auto').decode().then(() => true, () => false);
+  reelImagePending = pending;
+  const ready = await pending;
+  if (reelImagePending !== pending) return;
+  reelImagePending = null;
+  if (!ready || homeChapter.hidden) return;
+
+  function finishSwitch() {
+    renderReelSlide(target);
+    preloadNextReelSlide(target);
+  }
   if (reelReducedMotion.matches || !reelNoise) {
-    renderReelSlide(queuedReelIndex);
+    finishSwitch();
     return;
   }
 
@@ -337,7 +373,7 @@ function showReelSlide(index) {
   function animateStatic(now) {
     const elapsed = now - start;
     if (elapsed >= duration) {
-      renderReelSlide(queuedReelIndex);
+      finishSwitch();
       return;
     }
     if (now - lastPaint >= framePeriod) {
@@ -356,12 +392,13 @@ syncReelToggle();
 reelToggle.addEventListener('click', () => {
   reelPaused = !reelPaused;
   syncReelToggle();
+  preloadNextReelSlide(queuedReelIndex);
 });
 reelReducedMotion.addEventListener('change', ({ matches }) => {
   if (!matches) return;
   reelPaused = true;
   syncReelToggle();
-  renderReelSlide(queuedReelIndex);
+  if (!reelImagePending && reelScreen.classList.contains('is-changing')) renderReelSlide(queuedReelIndex);
 });
 document.querySelector('.reel-prev').addEventListener('click', () => showReelSlide(queuedReelIndex - 1));
 document.querySelector('.reel-next').addEventListener('click', () => showReelSlide(queuedReelIndex + 1));
@@ -369,10 +406,13 @@ document.querySelector('.reel-next').addEventListener('click', () => showReelSli
 async function playTvIntro() {
   const intro = document.querySelector('#site-intro');
   const destination = reelScreen.closest('.tv-visual');
-  if (reelReducedMotion.matches || document.getElementById('home').hidden || document.hidden || !intro.showModal || !destination.animate) return;
+  if (reelReducedMotion.matches || homeChapter.hidden || document.hidden || !intro.showModal || !destination.animate) return;
 
   const introTv = intro.querySelector('.intro-tv');
+  const introBody = introTv.querySelector('.tv-body');
   const cover = reelSlides[0].querySelector('img').cloneNode();
+  cover.loading = 'eager';
+  introBody.src = destination.querySelector('.tv-body').src;
   intro.querySelector('.intro-cover').append(cover);
   const listeners = new AbortController();
   const options = { signal: listeners.signal };
@@ -388,7 +428,7 @@ async function playTvIntro() {
     window.addEventListener('resize', () => { if (movement) close(); }, options);
     const closed = new Promise(resolve => intro.addEventListener('close', resolve, options));
     const loaded = Promise.race([
-      Promise.allSettled([introTv.querySelector('.tv-body').decode(), cover.decode(), delay(1050)]),
+      Promise.allSettled([introBody.decode(), cover.decode(), delay(1050)]),
       delay(1850)
     ]);
     const settled = loaded.then(async () => {
@@ -414,8 +454,9 @@ async function playTvIntro() {
 }
 
 function startReelTimer() {
+  preloadNextReelSlide(queuedReelIndex);
   window.setInterval(() => {
-    if (!reelPaused && !document.hidden && !document.getElementById('home').hidden && !projectDialog.open && !reelScreen.matches(':hover') && !reelScreen.matches(':focus-within')) showReelSlide(queuedReelIndex + 1);
+    if (!reelImagePending && !reelPaused && !document.hidden && !homeChapter.hidden && !projectDialog.open && !reelScreen.matches(':hover') && !reelScreen.matches(':focus-within')) showReelSlide(queuedReelIndex + 1);
   }, 2800);
 }
 playTvIntro().then(startReelTimer, startReelTimer);
@@ -482,9 +523,14 @@ const internshipPrograms = [
 ];
 const gallery = {
   internship: internshipPrograms.map(([number,title,href],i) => ({src:`./assets/gallery/internship-${String(number).padStart(2,'0')}.jpg`, title, href, alt:title, caption:`Internship Project · ${String(i+1).padStart(2,'0')}/08`})),
-  photo: photographyOrder.map((number,i) => ({...photography[number-1], caption:`Photographic Works · ${String(i+1).padStart(2,'0')}/${photography.length}`}))
+  photo: photographyOrder.map((number,i) => ({
+    ...photography[number-1],
+    preview:`./assets/gallery/previews/photo-${String(number).padStart(2,'0')}.webp`,
+    caption:`Photographic Works · ${String(i+1).padStart(2,'0')}/${photography.length}`
+  }))
 };
 const galleryDialog = document.querySelector('#gallery-dialog');
+const galleryImage = document.querySelector('#gallery-image');
 const galleryZoom = galleryDialog.querySelector('.gallery-zoom');
 let galleryKind = 'photo';
 let galleryIndex = 0;
@@ -497,6 +543,8 @@ function resetGalleryZoom() {
 }
 function toggleGalleryZoom() {
   const zoomed = galleryDialog.classList.toggle('is-zoomed');
+  const item = gallery[galleryKind][galleryIndex];
+  galleryImage.src = zoomed ? item.src : item.preview || item.src;
   galleryZoom.setAttribute('aria-pressed', String(zoomed));
   galleryZoom.setAttribute('aria-label', zoomed ? 'Fit image to viewer' : 'Zoom image to actual size');
   galleryDialog.scrollTop = 0;
@@ -504,9 +552,8 @@ function toggleGalleryZoom() {
 }
 function showGalleryImage() {
   const item = gallery[galleryKind][galleryIndex];
-  const image = document.querySelector('#gallery-image');
-  image.src = item.src;
-  image.alt = item.alt || item.caption;
+  galleryImage.src = item.preview || item.src;
+  galleryImage.alt = item.alt || item.caption;
   document.querySelector('#gallery-caption').textContent = item.caption;
 }
 function openGallery(kind, index) {
@@ -538,10 +585,10 @@ for (const [kind, containerId] of [['internship','internship-grid'],['photo','ph
     }
     if (kind === 'internship' && item.src.endsWith('internship-04.jpg')) tile.classList.add('landscape');
     const image = document.createElement('img');
-    image.src = item.src;
     image.alt = item.alt || item.caption;
     image.loading = 'lazy';
     image.decoding = 'async';
+    image.dataset.chapterSrc = item.preview || item.src;
     if (item.width && item.height) {
       image.width = item.width;
       image.height = item.height;
@@ -549,6 +596,8 @@ for (const [kind, containerId] of [['internship','internship-grid'],['photo','ph
     tile.append(image);
     container.append(tile);
   });
+  const chapter = container.closest('section');
+  if (!chapter.hidden) loadChapterImages(chapter);
 }
 
 // Justified rows preserve the left-to-right sequence and every image's full frame.

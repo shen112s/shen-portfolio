@@ -1,5 +1,16 @@
 /* Moving image and editorial archive */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap');
+@font-face{
+  font-family:'DM Sans';
+  src:url('./assets/dm-sans-latin.woff2') format('woff2');
+  font-weight:400 700;
+  font-display:swap;
+}
+@font-face{
+  font-family:Newsreader;
+  src:url('./assets/newsreader-latin.woff2') format('woff2');
+  font-weight:400 500;
+  font-display:swap;
+}
 :root{--paper:#f2f0ea;--pale:#e4e2db;--ink:#20211f;--muted:#77766f;--line:rgba(32,33,31,.22);--serif:'Newsreader',Georgia,serif;--sans:'DM Sans',Arial,sans-serif;--mono:'DM Sans',Arial,sans-serif}
 body{background:var(--paper);color:var(--ink)}
 .site-header{min-height:4.75rem;background:rgba(242,240,234,.96);border-bottom:1px solid var(--line);z-index:50}
