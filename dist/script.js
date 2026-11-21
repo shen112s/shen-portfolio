@@ -5,10 +5,49 @@ new ResizeObserver(syncHeaderHeight).observe(siteHeader);
 
 // Each chapter has its own address while retaining the simple static-site setup.
 const chapters = ['home', 'about', 'journalism', 'creative', 'photography', 'internship'];
+const portfolioAssetBase = new URL('./assets/', document.baseURI).href;
+
+function recoverPortfolioImage(image) {
+  const source = image.getAttribute('src');
+  if (!source) return false;
+  const url = new URL(source, document.baseURI);
+  if (!url.href.startsWith(portfolioAssetBase)) return false;
+
+  if (url.pathname.endsWith('.webp')) {
+    const extension = /\/(?:gallery\/previews|tv-posters)\//.test(url.pathname) ? '.jpg' : '.png';
+    url.pathname = url.pathname.replace(/\.webp$/, extension);
+  } else {
+    if (url.searchParams.has('retry') || url.protocol === 'file:') return false;
+    url.searchParams.set('retry', '1');
+  }
+  image.src = url.href;
+  return true;
+}
+document.addEventListener('error', event => {
+  if (event.target instanceof HTMLImageElement) recoverPortfolioImage(event.target);
+}, true);
+for (const image of document.images) {
+  if (image.complete && image.currentSrc && !image.naturalWidth) recoverPortfolioImage(image);
+}
+
+function revealChapterImage(image) {
+  if (!image.dataset.chapterSrc) return;
+  image.loading = 'eager';
+  image.src = image.dataset.chapterSrc;
+  delete image.dataset.chapterSrc;
+}
+const chapterImageObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+  for (const { target, isIntersecting } of entries) {
+    if (!isIntersecting) continue;
+    chapterImageObserver.unobserve(target);
+    revealChapterImage(target);
+  }
+}, { rootMargin: '400px 240px' }) : null;
+
 function loadChapterImages(chapter) {
   for (const image of chapter.querySelectorAll('img[data-chapter-src]')) {
-    image.src = image.dataset.chapterSrc;
-    delete image.dataset.chapterSrc;
+    if (image.loading === 'lazy' && chapterImageObserver) chapterImageObserver.observe(image);
+    else revealChapterImage(image);
   }
 }
 function showChapter() {
@@ -331,6 +370,18 @@ function paintReelStatic(progress) {
   }
   reelStaticContext.putImageData(reelNoise, 0, 0);
 }
+async function decodePortfolioImage(image) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const source = image.src;
+    try {
+      await image.decode();
+      return true;
+    } catch {
+      if (image.src === source && !recoverPortfolioImage(image)) return false;
+    }
+  }
+  return false;
+}
 function requestReelImage(index, priority) {
   const image = reelSlides[index].querySelector('img');
   image.fetchPriority = priority;
@@ -350,7 +401,7 @@ async function showReelSlide(index) {
   queuedReelIndex = target;
   window.cancelAnimationFrame(reelTransitionFrame);
   reelScreen.classList.remove('is-changing');
-  const pending = requestReelImage(target, 'auto').decode().then(() => true, () => false);
+  const pending = decodePortfolioImage(requestReelImage(target, 'auto'));
   reelImagePending = pending;
   const ready = await pending;
   if (reelImagePending !== pending) return;
@@ -428,7 +479,7 @@ async function playTvIntro() {
     window.addEventListener('resize', () => { if (movement) close(); }, options);
     const closed = new Promise(resolve => intro.addEventListener('close', resolve, options));
     const loaded = Promise.race([
-      Promise.allSettled([introBody.decode(), cover.decode(), delay(1050)]),
+      Promise.allSettled([decodePortfolioImage(introBody), decodePortfolioImage(cover), delay(1050)]),
       delay(1850)
     ]);
     const settled = loaded.then(async () => {
@@ -640,7 +691,6 @@ function layoutPhotography() {
     row.style.height = `${imageHeight + frameHeight}px`;
     for (let i = start; i < index; i++) {
       photoTiles[i].style.flexBasis = `${imageHeight * photoRatios[i] + frameWidth}px`;
-      if (start === 0) photoTiles[i].querySelector('img').loading = 'eager';
       row.append(photoTiles[i]);
     }
     rows.push(row);

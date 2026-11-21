@@ -104,8 +104,12 @@ for (const [type, items] of Object.entries(gallery)) {
     checkRef(scriptFile, item.src);
     if (type === 'photo' && !item.preview) failures.push(`Missing photography preview: ${item.src}`);
     checkRef(scriptFile, item.preview);
+    if (item.preview) checkRef(scriptFile, item.preview.replace(/\.webp$/, '.jpg'));
     if (!item.caption.endsWith(`/${String(items.length).padStart(2,'0')}`)) failures.push(`Stale gallery counter: ${item.caption}`);
   }
+}
+for (const match of index.matchAll(/\.\/assets\/tv-posters\/[^"\s]+\.webp/g)) {
+  checkRef(resolve(site, 'index.html'), match[0].replace(/\.webp$/, '.jpg'));
 }
 if (size >= 1024 ** 3) failures.push('Published site exceeds GitHub Pages 1 GiB limit.');
 if (failures.length) { console.error(failures.join('\n')); process.exit(1); }
